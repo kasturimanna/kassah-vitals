@@ -241,8 +241,8 @@ include("header.php");
             <div>
                 <h3 class="text-white font-bold text-lg mb-4">Contact Info</h3>
                 <ul class="space-y-2 text-sm">
-                    <li><i class="fa-solid fa-location-dot mr-2 w-4"></i> 123 Health Avenue, Medical City</li>
-                    <li><i class="fa-solid fa-phone mr-2 w-4"></i> +1 (800) 123-4567</li>
+                    <li><i class="fa-solid fa-location-dot mr-2 w-4"></i> Kolkata, West Bengal, India</li>
+                    <li><i class="fa-solid fa-phone mr-2 w-4"></i> +91 70031 23456</li>
                     <li><i class="fa-solid fa-envelope mr-2 w-4"></i> support@kassah.org</li>
                 </ul>
             </div>
