@@ -1,6 +1,6 @@
 <?php
 $type='cidfont0';
-$name='HYSMyeongJoStd-Medium-Acro'; // AdobeMyungjoStd-Medium-Acro in acrobat 6
+$name='HYSMyeongJoStd-Medium-Acro'; 
 $displayname = 'MyungJo Medium (Korean)';
 $desc = array(
 	'Ascent' => 880,
@@ -19,7 +19,7 @@ $cidinfo = array(
 );
 $enc = 'UniKS-UCS2-H';
 
-// underline position, needs checking:
+
 $up = -130;
 $ut = 40;
 
@@ -37,7 +37,7 @@ $cw = array(
 	122 => 500, 123 => 583, 124 => 583, 125 => 583, 126 => 750,
 );
 $_cr = array(
-	//array(97, 97, 500),
+	
 	array(8094, 8190, 500)
 );
 foreach($_cr as $_r) {
@@ -45,4 +45,4 @@ foreach($_cr as $_r) {
 		$cw[$i+31] = $_r[2];
 	}
 }
-// --- EOF ---
+

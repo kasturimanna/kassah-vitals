@@ -45,17 +45,17 @@ session_destroy();
 </head>
 <body class="min-h-screen bg-slate-950 font-sans flex items-center justify-center overflow-hidden relative">
 
-    <!-- Animated background blobs -->
+    
     <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div class="absolute top-[-10%] left-[15%] w-96 h-96 bg-brand-500/20 rounded-full blur-3xl animate-blob"></div>
         <div class="absolute top-[40%] right-[5%] w-80 h-80 bg-accent-500/20 rounded-full blur-3xl animate-blob" style="animation-delay:2s"></div>
         <div class="absolute bottom-[-10%] left-[40%] w-96 h-96 bg-highlight-500/20 rounded-full blur-3xl animate-blob" style="animation-delay:4s"></div>
     </div>
 
-    <!-- Content card -->
+    
     <div class="animate-fade-up text-center px-6 max-w-lg w-full">
 
-        <!-- Icon with pulse ring -->
+        
         <div class="relative inline-flex items-center justify-center mb-8">
             <div class="absolute w-32 h-32 bg-brand-500/20 rounded-full animate-ping-slow"></div>
             <div class="relative w-24 h-24 bg-gradient-to-br from-brand-500 to-accent-500 rounded-3xl flex items-center justify-center shadow-2xl shadow-brand-500/30">
@@ -63,17 +63,17 @@ session_destroy();
             </div>
         </div>
 
-        <!-- Message -->
+        
         <h1 class="text-4xl font-black text-white mb-3">You've Logged Out</h1>
         <p class="text-slate-400 text-lg mb-10 font-medium">Your session has been securely ended.<br>Thank you for using <span class="text-brand-400 font-bold">KASSAH Vitals</span>.</p>
 
-        <!-- Security badge -->
+        
         <div class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 px-5 py-2.5 rounded-full text-sm font-semibold mb-10">
             <i class="fa-solid fa-shield-check"></i>
             Session data securely cleared
         </div>
 
-        <!-- Action buttons -->
+        
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="index1.php"
                class="bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-8 rounded-2xl transition shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2 group">
@@ -87,7 +87,7 @@ session_destroy();
             </a>
         </div>
 
-        <!-- Brand footer -->
+        
         <p class="mt-16 text-slate-700 text-sm font-medium">
             KASSAH <span class="text-slate-600">Vitals</span> &nbsp;•&nbsp; Secure Healthcare Platform
         </p>

@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 include('func1.php');
 
-// --- ROBUST DATABASE CONNECTION (PDO) ---
+
 $host = 'localhost';
 $dbname = 'myhmsdb';
 $db_user = 'root';
@@ -13,7 +13,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    // --- IOMT AUTO-MIGRATION ---
+    
     $columns = $pdo->query("SHOW COLUMNS FROM appointmenttb")->fetchAll(PDO::FETCH_COLUMN);
     if (!in_array('current_status', $columns)) {
         $pdo->exec("ALTER TABLE appointmenttb ADD COLUMN current_status VARCHAR(20) DEFAULT 'Scheduled'");
@@ -40,33 +40,33 @@ try {
     die("<div style='background-color:#fee2e2; color:#991b1b; padding:20px;'>System Error: Database connection failed.</div>");
 }
 
-// =========================================================================
-// NEW REAL-TIME AJAX ENDPOINT: Fetches live data instantly when modal opens
-// =========================================================================
+
+
+
 if(isset($_GET['ajax_get_vitals'])) {
     header('Content-Type: application/json');
     $appt_id = $_GET['ajax_get_vitals'];
     
-    // Grab latest vitals
+    
     $stmt = $pdo->prepare("SELECT oxygen_level, heart_rate, oxygen_liters, daily_update FROM appointmenttb WHERE ID = ?");
     $stmt->execute([$appt_id]);
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Grab the author of the last change
+    
     $log_stmt = $pdo->prepare("SELECT changed_by FROM patient_vitals_log WHERE appt_id = ? ORDER BY recorded_at DESC LIMIT 1");
     $log_stmt->execute([$appt_id]);
     $data['last_edited'] = $log_stmt->fetchColumn() ?: "System";
 
     echo json_encode($data);
-    exit(); // Stop the rest of the page from loading to keep the JSON clean
+    exit(); 
 }
-// =========================================================================
+
 
 if(!isset($_SESSION['dname'])) { header("Location: index.php"); exit(); }
 $doctor = $_SESSION['dname'];
 $notification = '';
 
-// --- ACTION: CANCEL APPOINTMENT ---
+
 if(isset($_GET['cancel'])) {
     $stmt = $pdo->prepare("UPDATE appointmenttb SET doctorStatus='0' WHERE ID = ?");
     if($stmt->execute([$_GET['ID']])) {
@@ -74,7 +74,7 @@ if(isset($_GET['cancel'])) {
     }
 }
 
-// --- ACTION: CHECK-IN PATIENT ---
+
 if(isset($_POST['check_in_patient'])) {
     $target_appt = $_POST['appt_id'];
     try {
@@ -86,7 +86,7 @@ if(isset($_POST['check_in_patient'])) {
     }
 }
 
-// --- ACTION: ADMIT PATIENT ---
+
 if(isset($_POST['admit_patient'])) {
     $target_appt = $_POST['appt_id'];
     $target_pid = $_POST['pid'];
@@ -104,7 +104,7 @@ if(isset($_POST['admit_patient'])) {
     }
 }
 
-// --- ACTION: DISCHARGE PATIENT ---
+
 if(isset($_POST['discharge_patient'])) {
     $target_appt = $_POST['appt_id'];
     $target_pid = $_POST['pid'];
@@ -125,7 +125,7 @@ if(isset($_POST['discharge_patient'])) {
     }
 }
 
-// --- ACTION: UPDATE VITALS ---
+
 if(isset($_POST['update_vitals'])) {
     $target_appt = $_POST['appt_id'];
     $target_pid = $_POST['pid'];
@@ -150,7 +150,7 @@ if(isset($_POST['update_vitals'])) {
     }
 }
 
-// PRE-FETCH ALL DATA FOR UI
+
 $appts = $pdo->prepare("
     SELECT a.ID, a.pid, a.fname, a.lname, a.gender, a.email, a.contact, a.appdate, a.apptime, a.userStatus, a.doctorStatus,
            a.current_status, a.bed_number, a.oxygen_level, a.oxygen_liters, a.heart_rate, a.alert_threshold, a.auto_o2_mode, a.daily_update,
@@ -170,21 +170,21 @@ $all_appointments = $appts->fetchAll();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%); color: #334155; font-family: 'Plus Jakarta Sans', sans-serif;}
+        body { background: linear-gradient(135deg, 
         .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         .tab-content { display: none; animation: slideUp 0.3s ease-out; }
         .tab-content.active { display: block; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: 
         input[type=range] { -webkit-appearance: none; background: transparent; width: 100%; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 32px; width: 32px; border-radius: 50%; background: #0d9488; cursor: pointer; margin-top: -12px; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #cbd5e1; border-radius: 4px; }
-        .toggle-checkbox:checked { right: 0; border-color: #10b981; }
-        .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
-        .toggle-checkbox { right: 0; z-index: 1; border-color: #e2e8f0; transition: all 0.3s; }
-        .toggle-label { width: 3.5rem; height: 1.75rem; background-color: #e2e8f0; border-radius: 9999px; transition: all 0.3s; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 32px; width: 32px; border-radius: 50%; background: 
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: 
+        .toggle-checkbox:checked { right: 0; border-color: 
+        .toggle-checkbox:checked + .toggle-label { background-color: 
+        .toggle-checkbox { right: 0; z-index: 1; border-color: 
+        .toggle-label { width: 3.5rem; height: 1.75rem; background-color: 
     </style>
 </head>
 <body class="h-screen w-full flex flex-col overflow-hidden">
@@ -283,7 +283,7 @@ $all_appointments = $appts->fetchAll();
                                         <?php elseif($status == 'Outpatient'): ?>
                                             <span class="bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-user-doctor mr-1"></i> Outpatient</span>
                                         <?php else: ?>
-                                            <!-- Scheduled Status -->
+                                            
                                             <span class="bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold border border-amber-200"><i class="fa-solid fa-calendar-check mr-1"></i> Scheduled</span>
                                         <?php endif; ?>
                                     </td>
@@ -322,7 +322,7 @@ $all_appointments = $appts->fetchAll();
                                                         <i class="fa-solid fa-xmark"></i>
                                                     </a>
 
-                                                <?php else: // 'Scheduled' ?>
+                                                <?php else: 
                                                     <form method="POST" class="inline-block m-0" onsubmit="return confirm('Confirm patient arrival and check them in?');">
                                                         <input type="hidden" name="appt_id" value="<?= $row['ID'] ?>">
                                                         <button type="submit" name="check_in_patient" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm" title="Check-in Patient">
@@ -396,12 +396,12 @@ $all_appointments = $appts->fetchAll();
             $is_admitted = ($status == 'Admitted');
             $is_prescribed = !empty($row['pres_id']);
             
-            // Check who updated this patient last for the Vitals Modal
+            
             $last_log_stmt = $pdo->prepare("SELECT changed_by FROM patient_vitals_log WHERE appt_id = ? ORDER BY recorded_at DESC LIMIT 1");
             $last_log_stmt->execute([$row['ID']]);
             $last_modifier = $last_log_stmt->fetchColumn() ?: "System";
             
-            // Generate Admit Modal
+            
             if($is_active && !$is_admitted && $status != 'Discharged' && !$is_prescribed): 
     ?>
         <div id="admitModal_<?= $row['ID'] ?>" class="hidden fixed inset-0 z-[100] flex justify-center items-center backdrop-blur-md bg-slate-900/60 p-4">
@@ -409,7 +409,7 @@ $all_appointments = $appts->fetchAll();
                 <div class="text-center mb-6">
                     <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4"><i class="fa-solid fa-bed-pulse"></i></div>
                     <h3 class="text-2xl font-bold text-slate-800">Admit Patient</h3>
-                    <p class="text-slate-500 text-sm mt-1"><?= htmlspecialchars($row['fname'] . ' ' . $row['lname']) ?> (Appt #<?= $row['ID'] ?>)</p>
+                    <p class="text-slate-500 text-sm mt-1"><?= htmlspecialchars($row['fname'] . ' ' . $row['lname']) ?> (Appt 
                 </div>
                 <form method="post" action="" class="space-y-5">
                     <input type="hidden" name="appt_id" value="<?= $row['ID'] ?>">
@@ -432,7 +432,7 @@ $all_appointments = $appts->fetchAll();
         </div>
     <?php 
             endif;
-            // Generate Vitals Modal
+            
             if($is_active && $is_admitted): 
     ?>
         <div id="vitalsModal_<?= $row['ID'] ?>" class="hidden fixed inset-0 z-[100] flex justify-center items-center backdrop-blur-md bg-slate-900/80 p-4 sm:p-8">
@@ -444,7 +444,7 @@ $all_appointments = $appts->fetchAll();
                         <div class="flex justify-between items-center mb-1">
                             <p class="text-teal-400 text-xs font-bold uppercase tracking-widest">Ward Telemetry & Notes</p>
                             
-                            <!-- The Author Tag that gets dynamically updated -->
+                            
                             <span class="last-edited-tag text-[10px] font-bold text-slate-400">
                                 <i class="fa-solid fa-clock-rotate-left mr-1"></i> Last Edited: <?= htmlspecialchars($last_modifier) ?>
                             </span>
@@ -550,24 +550,24 @@ $all_appointments = $appts->fetchAll();
             document.body.style.overflow = 'auto';
         }
         
-        // --- UPGRADED OPEN VITALS MODAL WITH REAL-TIME AJAX FETCH ---
+        
         function openVitalsModal(id) {
-            // Ping the database for the absolute freshest data before showing the modal
+            
             fetch('?ajax_get_vitals=' + id)
                 .then(response => response.json())
                 .then(data => {
                     let modal = document.getElementById('vitalsModal_' + id);
                     
-                    // Inject fresh numbers into the inputs
+                    
                     modal.querySelector('input[name="new_spo2"]').value = data.oxygen_level;
                     modal.querySelector('input[name="new_hr"]').value = data.heart_rate;
                     modal.querySelector('input[name="new_liters"]').value = data.oxygen_liters;
                     modal.querySelector('textarea[name="daily_update"]').value = data.daily_update;
                     
-                    // Update visual readouts
+                    
                     modal.querySelector('output[id="litersOut_' + id + '"]').innerHTML = data.oxygen_liters;
                     
-                    // Update Author Tag dynamically
+                    
                     let tag = modal.querySelector('.last-edited-tag');
                     tag.innerHTML = '<i class="fa-solid fa-clock-rotate-left mr-1"></i> Last Edited: ' + data.last_edited;
                     if(data.last_edited === 'System Admin') {
@@ -576,13 +576,13 @@ $all_appointments = $appts->fetchAll();
                         tag.classList.replace('text-rose-400', 'text-slate-400');
                     }
 
-                    // Open the modal
+                    
                     modal.classList.remove('hidden');
                     document.body.style.overflow = 'hidden';
                 })
                 .catch(error => {
                     console.error("Error fetching live data:", error);
-                    // Fallback to open modal even if fetch fails
+                    
                     document.getElementById('vitalsModal_' + id).classList.remove('hidden');
                     document.body.style.overflow = 'hidden';
                 });

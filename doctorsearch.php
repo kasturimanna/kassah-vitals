@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- <?php #include("func.php");?>
+ <?php 
 <html>
 <head>
 	<title>Doctor Details</title>
@@ -34,7 +34,7 @@ if(isset($_POST['doctor_search_submit']))
   </thead>
   <tbody>";
 
-	// while ($row=mysqli_fetch_array($result)){
+	
 		    $username = $row['username'];
         $password = $row['password'];
         $email = $row['email'];
@@ -45,7 +45,7 @@ if(isset($_POST['doctor_search_submit']))
           <td>$email</td>
           <td>$docFees</td>
         </tr>";
-	// }
+	
 	echo "</tbody></table><center><a href='admin-panel1.php' class='btn btn-light'>Back to dashboard</a></div></center></div></div></div>";
 }
   }

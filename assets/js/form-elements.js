@@ -1,6 +1,6 @@
 var FormElements = function() {"use strict";
 
-	//function to initiate jquery.maskedinput
+	
 	var maskInputHandler = function() {
 		$.mask.definitions['~'] = '[+-]';
 		$('.input-mask-date').mask('99/99/9999');
@@ -13,7 +13,7 @@ var FormElements = function() {"use strict";
 			}
 		});
 	};
-	//function to initiate bootstrap-touchspin
+	
 	var touchSpinHandler = function() {
 		$("input[name='demo1']").TouchSpin({
 			min: 0,
@@ -101,7 +101,7 @@ var FormElements = function() {"use strict";
 		$('#timepicker-default').timepicker();		
 	};
 	return {
-		//main function to initiate template pages
+		
 		init: function() {
 			maskInputHandler();
 			touchSpinHandler();

@@ -4,7 +4,7 @@ var FormWizard = function () {
     var wizardForm = $('#form');
     var numberOfSteps = $('.swMain > ul > li').length;
     var initWizard = function () {
-        // function to initiate Wizard Form
+        
         wizardContent.smartWizard({
             selected: 0,
             keyNavigation: false,
@@ -19,7 +19,7 @@ var FormWizard = function () {
     var initValidator = function () {
         
         $.validator.setDefaults({
-            errorElement: "span", // contain the error msg in a span tag
+            errorElement: "span", 
             errorClass: 'help-block',
             ignore: ':hidden',
             rules: {
@@ -51,17 +51,17 @@ var FormWizard = function () {
             },
             highlight: function (element) {
                 $(element).closest('.help-block').removeClass('valid');
-                // display OK icon
+                
                 $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
-                // add the Bootstrap error class to the control group
+                
             },
-            unhighlight: function (element) { // revert the change done by hightlight
+            unhighlight: function (element) { 
                 $(element).closest('.form-group').removeClass('has-error');
-                // set error class to the control group
+                
             },
             success: function (label, element) {
                 label.addClass('help-block valid');
-                // mark the current input as valid and display OK icon
+                
                 $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
             }
         });
@@ -105,13 +105,13 @@ var FormWizard = function () {
     };
     var leaveAStepCallback = function (obj, context) {
         return validateSteps(context.fromStep, context.toStep);
-        // return false to stay on step and true to continue navigation
+        
     };
     var onFinish = function (obj, context) {
         if (validateAllSteps()) {
             alert('form submit function');
             $('.anchor').children("li").last().children("a").removeClass('wait').removeClass('selected').addClass('done').children('.stepNumber').addClass('animated tada');
-            //wizardForm.submit();
+            
         }
     };
     var validateSteps = function (stepnumber, nextstep) {
@@ -120,13 +120,13 @@ var FormWizard = function () {
         
         if (numberOfSteps >= nextstep && nextstep > stepnumber) {
         	
-            // cache the form element selector
-            if (wizardForm.valid()) { // validate the form
+            
+            if (wizardForm.valid()) { 
                 wizardForm.validate().focusInvalid();
                 for (var i=stepnumber; i<=nextstep; i++){
         		$('.anchor').children("li:nth-child(" + i + ")").not("li:nth-child(" + nextstep + ")").children("a").removeClass('wait').addClass('done').children('.stepNumber').addClass('animated tada');
         		}
-                //focus the invalid fields
+                
                 isStepValid = true;
                 return true;
             };
@@ -140,7 +140,7 @@ var FormWizard = function () {
     };
     var validateAllSteps = function () {
         var isStepValid = true;
-        // all step validation logic
+        
         return isStepValid;
     };
     return {

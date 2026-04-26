@@ -1,11 +1,11 @@
 <?php
-// 1. Initialize the session.
+
 session_start();
 
-// 2. Unset all of the session variables to clear data immediately.
+
 $_SESSION = array();
 
-// 3. Destroy the session cookie in the user's browser for maximum security.
+
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -14,7 +14,7 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// 4. Finally, destroy the session on the server.
+
 session_destroy();
 ?>
 <!DOCTYPE html>
@@ -71,7 +71,7 @@ session_destroy();
             
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                // Make sure to change 'index1.php' to whatever your actual login page is named!
+                
                 window.location.href = 'index1.php'; 
             }
         }, 1000);

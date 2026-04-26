@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- <?php #include("func.php");?>
+ <?php 
 <html>
 <head>
 	<title>User Messages</title>

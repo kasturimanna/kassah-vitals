@@ -20,7 +20,7 @@ $cidinfo = array(
 );
 $enc = 'UniJIS-UCS2-H';
 
-// underline position, needs checking:
+
 $up = -75;
 $ut = 50;
 
@@ -51,10 +51,10 @@ $cw = array(
 	252 => 612, 253 => 518, 254 => 539, 255 => 591, 256 => 584, 257 => 446, 258 => 433, 259 => 683, 260 => 468, 261 => 562,
 );
 $_cr = array(
-	array(231, 632, 500), // half-width
+	array(231, 632, 500), 
 	array(8718, 8718, 500),
-	array(9738, 9757, 250), // quarter-width
-	array(9758, 9778, 333), // third-width
+	array(9738, 9757, 250), 
+	array(9758, 9778, 333), 
 	array(12063, 12087, 500)
 );
 foreach($_cr as $_r) {
@@ -62,4 +62,4 @@ foreach($_cr as $_r) {
 		$cw[$i+31] = $_r[2];
 	}
 }
-// --- EOF ---
+

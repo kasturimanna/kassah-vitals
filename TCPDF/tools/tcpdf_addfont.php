@@ -1,45 +1,40 @@
-#!/usr/bin/env php
-<?php
-//============================================================+
-// File name   : tcpdf_addfont.php
-// Version     : 1.0.002
-// Begin       : 2013-05-13
-// Last Update : 2013-08-05
-// Authors     : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
-//               Remi Collet
-// License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
-// -------------------------------------------------------------------
-// Copyright (C) 2011-2013 Nicola Asuni - Tecnick.com LTD
-//
-// This file is part of TCPDF software library.
-//
-// TCPDF is free software: you can redistribute it and/or modify it
-// under the terms of the GNU Lesser General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// TCPDF is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Lesser General Public License for more details.
-//
-// You should have received a copy of the License
-// along with TCPDF. If not, see
-// <http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT>.
-//
-// See LICENSE.TXT file for more information.
-// -------------------------------------------------------------------
-//
-// Description : This is a command line script to generate TCPDF fonts.
-//
-//============================================================+
 
-/**
- * @file
- * This is a command line script to generate TCPDF fonts.<br>
- * @package com.tecnick.tcpdf
- * @version 1.0.000
- */
+<?php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (php_sapi_name() != 'cli') {
   echo 'You need to run this command from console.';
@@ -54,9 +49,7 @@ foreach ($tcpdf_include_dirs as $tcpdf_include_path) {
 	}
 }
 
-/**
- * Display help guide for this command.
- */
+
 function showHelp() {
 	$help = <<<EOD
 tcpdf_addfont - command line tool to convert fonts for the TCPDF library.
@@ -112,7 +105,7 @@ Options:
 	            php font file.
 
 	-l
-	--link      Link to system font instead of copying the font data #
+	--link      Link to system font instead of copying the font data 
 	            (not transportable) - Note: do not work with Type1 fonts.
 
 	-i
@@ -125,18 +118,18 @@ EOD;
 	exit(0);
 }
 
-// remove the name of the executing script
+
 array_shift($argv);
 
-// no options chosen
+
 if (!is_array($argv)) {
   showHelp();
 }
 
-// initialize the array of options
+
 $options = array('type'=>'', 'enc'=>'', 'flags'=>32, 'outpath'=>K_PATH_FONTS, 'platid'=>3, 'encid'=>1, 'addcbbox'=>false, 'link'=>false);
 
-// short input options
+
 $sopt = '';
 $sopt .= 't:';
 $sopt .= 'e:';
@@ -149,7 +142,7 @@ $sopt .= 'l';
 $sopt .= 'i:';
 $sopt .= 'h';
 
-// long input options
+
 $lopt = array();
 $lopt[] = 'type:';
 $lopt[] = 'enc:';
@@ -162,10 +155,10 @@ $lopt[] = 'link';
 $lopt[] = 'fonts:';
 $lopt[] = 'help';
 
-// parse input options
+
 $inopt = getopt($sopt, $lopt);
 
-// import options (with some sanitization)
+
 foreach ($inopt as $opt => $val) {
 	switch ($opt) {
 		case 't':
@@ -224,15 +217,15 @@ foreach ($inopt as $opt => $val) {
 			showHelp();
 			break;
 		}
-	} // end of switch
-} // end of while loop
+	} 
+} 
 
 if (empty($options['fonts'])) {
 	echo "ERROR: missing input fonts (try --help for usage)\n\n";
 	exit(2);
 }
 
-// check the output path
+
 if (!is_dir($options['outpath']) OR !is_writable($options['outpath'])) {
 	echo "ERROR: Can't write to ".$options['outpath']."\n\n";
 	exit(3);
@@ -242,7 +235,7 @@ echo "\n>>> Converting fonts for TCPDF:\n";
 
 echo '*** Output dir set to '.$options['outpath']."\n";
 
-// check if there are conversion errors
+
 $errors = false;
 
 foreach ($options['fonts'] as $font) {
@@ -264,6 +257,6 @@ if ($errors) {
 echo ">>> Process successfully completed!\n\n";
 exit(0);
 
-//============================================================+
-// END OF FILE
-//============================================================+
+
+
+

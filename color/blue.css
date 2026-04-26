@@ -1,7 +1,4 @@
-/*
-#1 color = #299dcc;
-#2 color = #0d8ebd;
-*/
+
 
 a:hover,
 a:focus {
@@ -18,7 +15,7 @@ a:focus {
 }
 
 
-/* service */
+
 
 .service-icon span {
 	color: #299dcc;
@@ -26,19 +23,19 @@ a:focus {
 
 
 
-/* button */
+
 .btn-skin {
   background-color: #299dcc;
   border-color: #299dcc;
 }
 
 
-/* top */
+
 .top-area {
 	background: #0d8ebd;
 }
 
-/* menu */
+
 
 .navbar-custom ul.nav ul.dropdown-menu li a:hover {
 	color: #0d8ebd;
@@ -67,7 +64,7 @@ a:focus {
 	color: #299dcc;
 }
 
-/* pricing box  */
+
 .pricing-content.featured h2,.pricing-content.featured .price-bottom {
 	background-color:#0d8ebd;
 }
@@ -77,7 +74,7 @@ a:focus {
 
 
 
-/* team */
+
 
 
 form#contact-form input:focus,form#contact-form select:focus,form#contact-form textarea:focus {
@@ -87,7 +84,7 @@ form.search-form input:focus {
 	border-color: #299dcc;
 }
 
-/* footer */
+
 ul.footer-menu li a:hover {
 	color: #299dcc;
 }

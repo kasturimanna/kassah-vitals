@@ -1,13 +1,13 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
-// Ensure doctor is logged in
+
 if(!isset($_SESSION['dname'])) {
     header("Location: index.php");
     exit();
 }
 
-// --- ROBUST DATABASE CONNECTION (PDO) ---
+
 $host = 'localhost';
 $dbname = 'myhmsdb';
 $db_user = 'root';
@@ -24,7 +24,7 @@ try {
 $doctor = $_SESSION['dname'];
 $notification = '';
 
-// --- HANDLE PRESCRIPTION SUBMISSION ---
+
 if(isset($_POST['prescribe'])) {
     $appdate = $_POST['appdate'];
     $apptime = $_POST['apptime'];
@@ -49,7 +49,7 @@ if(isset($_POST['prescribe'])) {
     }
 }
 
-// --- FETCH DATA FROM URL (GET) OR FORM SUBMISSION (POST) ---
+
 $pid = $_GET['pid'] ?? $_POST['pid'] ?? '';
 $ID = $_ID = $_GET['ID'] ?? $_POST['ID'] ?? '';
 $fname = $_GET['fname'] ?? $_POST['fname'] ?? '';
@@ -80,7 +80,7 @@ $apptime = $_GET['apptime'] ?? $_POST['apptime'] ?? '';
         }
     </script>
     <style>
-        body { background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%); color: #334155; margin: 0; padding: 0; }
+        body { background: linear-gradient(135deg, 
         .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
     </style>
 </head>

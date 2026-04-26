@@ -46,8 +46,8 @@ include("header.php");
     <style>
         html { scroll-behavior: smooth; }
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: 
+        ::-webkit-scrollbar-thumb { background: 
     </style>
 </head>
 

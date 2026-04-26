@@ -1,8 +1,8 @@
 <?php
-// ============================================================
-// KASSAH Vitals — AI Symptom Triage Engine
-// Heuristic AI for Patient Symptom Analysis
-// ============================================================
+
+
+
+
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 if (!isset($_SESSION['pid'])) { header("Location: index1.php"); exit(); }
 
@@ -10,9 +10,9 @@ $pdo = new PDO("mysql:host=localhost;dbname=myhmsdb", "root", "");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $pid = $_SESSION['pid'];
 
-// =====================================================
-// AI KNOWLEDGE BASE — Symptom → Condition Mapping
-// =====================================================
+
+
+
 $ai_knowledge_base = [
     'chest pain' => [
         'conditions' => ['Angina', 'Myocardial Infarction', 'Costochondritis', 'GERD'],
@@ -88,9 +88,9 @@ $ai_knowledge_base = [
     ],
 ];
 
-// =====================================================
-// MEDICAL REPORT AI — Lab Value Analyzer
-// =====================================================
+
+
+
 $lab_kb = [
     'glucose' => [
         'unit'=>'mg/dL','normal'=>[70,99],
@@ -148,35 +148,35 @@ $lab_kb = [
     ],
 ];
 
-// =====================================================
-// PURE PHP PDF TEXT EXTRACTOR (no external libraries)
-// Works on XAMPP with any text-based PDF
-// =====================================================
+
+
+
+
 function extractTextFromPDF(string $filepath): string {
     $raw = file_get_contents($filepath);
     if ($raw === false) return '';
 
     $text = '';
 
-    // Step 1: Decompress any FlateDecode (zlib) streams
+    
     preg_match_all('/stream([\s\S]*?)endstream/m', $raw, $streams);
     $decoded_streams = [];
     foreach ($streams[1] as $stream) {
         $s = ltrim($stream, "\r\n");
-        // Try zlib decompression
+        
         $decompressed = @zlib_decode($s);
         $decoded_streams[] = $decompressed !== false ? $decompressed : $s;
     }
     $all_content = implode(' ', $decoded_streams) . ' ' . $raw;
 
-    // Step 2: Extract text from PDF text operators: (text) Tj  [(text)] TJ
-    // Pattern: (Hello World) Tj
+    
+    
     preg_match_all('/\(([^)\\\\]*)\)\s*Tj/', $all_content, $tj_matches);
     foreach ($tj_matches[1] as $match) {
         $text .= ' ' . $match;
     }
 
-    // Pattern: [(text) offset (more)] TJ
+    
     preg_match_all('/\[([^\]]*)\]\s*TJ/', $all_content, $tj_arr_matches);
     foreach ($tj_arr_matches[1] as $block) {
         preg_match_all('/\(([^)]*)\)/', $block, $parts);
@@ -185,14 +185,14 @@ function extractTextFromPDF(string $filepath): string {
         }
     }
 
-    // Step 3: Also scan for plain lab-value patterns directly in raw text
-    // Many PDFs embed readable text even without decoding
+    
+    
     preg_match_all('/([A-Za-z][A-Za-z ]{2,20})[:\s=]+([0-9]+\.?[0-9]*)/', $raw, $raw_matches, PREG_SET_ORDER);
     foreach ($raw_matches as $m) {
         $text .= ' ' . $m[1] . ': ' . $m[2];
     }
 
-    // Clean up escape sequences and non-printable chars
+    
     $text = preg_replace('/\\\\[0-7]{3}/', ' ', $text);
     $text = preg_replace('/[^\x20-\x7E\n]/', ' ', $text);
     return trim($text);
@@ -202,7 +202,7 @@ function extractLabValues(string $text, array $kb): array {
     $findings = [];
     $text_lower = strtolower($text);
     foreach ($kb as $marker => $info) {
-        // Pattern: find "glucose : 250" or "glucose = 250" or "glucose 250"
+        
         if (preg_match('/' . preg_quote($marker, '/') . '[\s:=]+([0-9]+\.?[0-9]*)/i', $text_lower, $m)) {
             $val = (float)$m[1];
             $status = 'NORMAL';
@@ -221,14 +221,14 @@ $report_text_used = '';
 if (isset($_POST['analyze_report'])) {
     $report_text = '';
     $file_type_used = '';
-    // 1. From uploaded file
+    
     if (!empty($_FILES['report_file']['tmp_name']) && $_FILES['report_file']['error'] === 0) {
         $ext = strtolower(pathinfo($_FILES['report_file']['name'], PATHINFO_EXTENSION));
         if (in_array($ext, ['txt','csv'])) {
             $report_text = file_get_contents($_FILES['report_file']['tmp_name']);
             $file_type_used = strtoupper($ext);
         } elseif ($ext === 'pdf') {
-            // Extract text from PDF using pure PHP
+            
             $extracted = extractTextFromPDF($_FILES['report_file']['tmp_name']);
             if (empty(trim($extracted))) {
                 $report_result = ['error' => 'PDF could not be parsed (may be a scanned image PDF). Please paste the report text manually in the box below.'];
@@ -240,7 +240,7 @@ if (isset($_POST['analyze_report'])) {
             $report_result = ['error' => 'Unsupported file type. Please upload a .pdf, .txt, or .csv file.'];
         }
     }
-    // 2. From pasted text (overrides or supplements)
+    
     if (!empty(trim($_POST['report_text']))) {
         $report_text .= ' ' . $_POST['report_text'];
     }
@@ -257,16 +257,16 @@ if (isset($_POST['analyze_report'])) {
             $specialists = array_unique(array_column(array_filter($findings, fn($f) => $f['status'] !== 'NORMAL'), 'specialist'));
             $overall_urgency = count($abnormal) >= 3 ? 'HIGH' : (count($abnormal) >= 1 ? 'MEDIUM' : 'LOW');
             $report_result = ['findings'=>$findings,'abnormal_count'=>count($abnormal),'specialists'=>$specialists,'urgency'=>$overall_urgency];
-            // Log to DB
+            
             $stmt = $pdo->prepare("INSERT INTO ai_triage_log (pid, symptoms, ai_analysis, recommended_specialist, urgency_level) VALUES (?,?,?,?,?)");
             $stmt->execute([$pid, 'MEDICAL_REPORT_UPLOAD', json_encode(array_column($findings,'msg')), implode(', ',$specialists), $overall_urgency]);
         }
     }
 }
 
-// =====================================================
-// AI ANALYSIS ENGINE
-// =====================================================
+
+
+
 $ai_result = null;
 $triage_done = false;
 
@@ -275,7 +275,7 @@ if (isset($_POST['analyze'])) {
     $age = (int)$_POST['age'];
     $gender_input = $_POST['gender_input'];
     
-    // Match symptoms against knowledge base
+    
     $matched = [];
     foreach ($ai_knowledge_base as $keyword => $data) {
         if (strpos($symptoms_input, $keyword) !== false) {
@@ -284,12 +284,12 @@ if (isset($_POST['analyze'])) {
     }
 
     if (!empty($matched)) {
-        // Sort by urgency priority
+        
         $urgency_order = ['CRITICAL' => 0, 'HIGH' => 1, 'MEDIUM' => 2, 'LOW' => 3];
         usort($matched, fn($a, $b) => $urgency_order[$a['urgency']] <=> $urgency_order[$b['urgency']]);
         $primary = $matched[0];
 
-        // Age-based risk modifiers
+        
         $risk_note = '';
         if ($age > 60) $risk_note = "⚠️ Age risk factor detected (60+). Conditions may present more severely.";
         if ($age < 12) $risk_note = "⚠️ Pediatric patient. Specialist pediatric care recommended.";
@@ -308,7 +308,7 @@ if (isset($_POST['analyze'])) {
             'symptoms' => $symptoms_input
         ];
 
-        // Log the AI triage to database
+        
         $stmt = $pdo->prepare("INSERT INTO ai_triage_log (pid, symptoms, ai_analysis, recommended_specialist, urgency_level) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([
             $pid,
@@ -323,7 +323,7 @@ if (isset($_POST['analyze'])) {
     }
 }
 
-// Fetch past triage logs
+
 $past_logs = $pdo->prepare("SELECT * FROM ai_triage_log WHERE pid = ? ORDER BY created_at DESC LIMIT 5");
 $past_logs->execute([$pid]);
 $logs = $past_logs->fetchAll();
@@ -363,14 +363,14 @@ $logs = $past_logs->fetchAll();
 </head>
 <body class="min-h-screen bg-slate-950 font-sans text-slate-300 overflow-x-hidden">
 
-    <!-- Background blobs -->
+    
     <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div class="absolute top-[-10%] left-[10%] w-96 h-96 bg-brand-500/20 rounded-full blur-3xl animate-blob"></div>
         <div class="absolute top-[30%] right-[5%] w-80 h-80 bg-accent-500/20 rounded-full blur-3xl animate-blob" style="animation-delay:2s"></div>
         <div class="absolute bottom-0 left-[40%] w-96 h-96 bg-highlight-500/20 rounded-full blur-3xl animate-blob" style="animation-delay:4s"></div>
     </div>
 
-    <!-- Nav -->
+    
     <nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="admin-panel.php" class="flex items-center gap-3">
@@ -392,7 +392,7 @@ $logs = $past_logs->fetchAll();
 
     <div class="max-w-5xl mx-auto pt-28 pb-16 px-6">
 
-        <!-- Header -->
+        
         <div class="text-center mb-10">
             <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-brand-500 to-accent-500 rounded-3xl shadow-2xl shadow-brand-500/30 mb-6">
                 <i class="fa-solid fa-robot text-white text-3xl"></i>
@@ -405,7 +405,7 @@ $logs = $past_logs->fetchAll();
             </div>
         </div>
 
-        <!-- TAB SWITCHER -->
+        
         <div class="flex gap-3 mb-8 bg-slate-900/60 border border-slate-700/50 rounded-2xl p-2">
             <button onclick="showTab('symptoms-tab','report-tab',this)" id="btn-symptoms"
                 class="flex-1 py-3 rounded-xl font-bold text-sm bg-brand-500 text-white transition flex items-center justify-center gap-2">
@@ -418,7 +418,7 @@ $logs = $past_logs->fetchAll();
             </button>
         </div>
 
-        <!-- SYMPTOM CHECKER TAB -->
+        
         <div id="symptoms-tab">
         <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 mb-8">
             <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
@@ -454,7 +454,7 @@ $logs = $past_logs->fetchAll();
         </div>
         </div>
 
-        <!-- MEDICAL REPORT TAB -->
+        
         <div id="report-tab" style="display:none">
         <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 mb-8">
             <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
@@ -462,7 +462,7 @@ $logs = $past_logs->fetchAll();
             </h3>
             <p class="text-slate-400 text-sm mb-6">Upload a <strong class="text-white">.pdf, .txt, or .csv</strong> file — or use the <strong class="text-white">OCR Scanner</strong> below for scanned/photo-based reports (.jpg, .png). AI extracts and analyzes all lab values automatically.</p>
             <form method="POST" enctype="multipart/form-data" class="space-y-6">
-                <!-- File Upload Zone -->
+                
                 <div>
                     <label class="block text-slate-400 text-sm font-bold mb-2">Upload Report File <span class="text-brand-400">.pdf</span> / <span class="text-brand-400">.txt</span> / <span class="text-brand-400">.csv</span></label>
                     <label class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-slate-600 rounded-2xl cursor-pointer bg-slate-800/40 hover:border-accent-500 hover:bg-slate-800/60 transition group">
@@ -480,7 +480,7 @@ $logs = $past_logs->fetchAll();
                     <div class="flex-1 h-px bg-slate-700"></div>
                 </div>
 
-                <!-- Paste Text -->
+                
                 <div>
                     <label class="block text-slate-400 text-sm font-bold mb-2">Paste Report Text</label>
                     <textarea name="report_text" rows="7" placeholder="Paste your lab report here...
@@ -501,7 +501,7 @@ TSH: 6.2 mIU/L"
             </form>
         </div>
 
-        <!-- OCR SCANNER SECTION - For scanned/image reports -->
+        
         <div class="bg-slate-900/60 backdrop-blur-xl border border-orange-500/30 rounded-3xl p-8 mb-8">
             <div class="flex items-center gap-3 mb-2">
                 <div class="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center">
@@ -521,7 +521,7 @@ TSH: 6.2 mIU/L"
                 </label>
             </div>
 
-            <!-- OCR Status -->
+            
             <div id="ocr-status" class="hidden mt-4">
                 <div class="bg-slate-800/60 rounded-2xl p-4 border border-slate-700/50">
                     <div class="flex items-center gap-3 mb-3">
@@ -534,7 +534,7 @@ TSH: 6.2 mIU/L"
                 </div>
             </div>
 
-            <!-- OCR Preview -->
+            
             <div id="ocr-preview" class="hidden mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Uploaded Image</p>
@@ -553,7 +553,7 @@ TSH: 6.2 mIU/L"
             </button>
         </div>
 
-        <!-- Report Results -->
+        
         <?php if ($report_result): ?>
             <?php if (isset($report_result['error'])): ?>
                 <div class="bg-amber-500/10 border border-amber-500/30 rounded-3xl p-8 mb-8 text-center">
@@ -566,7 +566,7 @@ TSH: 6.2 mIU/L"
                 $urg_map = ['HIGH'=>['text-orange-400','bg-orange-500/10','border-orange-500/40'],'MEDIUM'=>['text-yellow-400','bg-yellow-500/10','border-yellow-500/40'],'LOW'=>['text-green-400','bg-green-500/10','border-green-500/40']];
                 [$uc,$ubg,$ubr] = $urg_map[$report_result['urgency']];
                 ?>
-                <!-- Summary Banner -->
+                
                 <div class="<?= $ubg ?> border <?= $ubr ?> rounded-3xl p-6 mb-6 flex flex-wrap items-center justify-between gap-4">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 <?= $ubg ?> rounded-2xl flex items-center justify-center">
@@ -585,7 +585,7 @@ TSH: 6.2 mIU/L"
                     <?php endif; ?>
                 </div>
 
-                <!-- Individual Lab Results -->
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     <?php foreach ($report_result['findings'] as $f):
                         $sc = ['NORMAL'=>['text-green-400','bg-green-500/10','border-green-500/30','fa-check-circle'],
@@ -620,7 +620,7 @@ TSH: 6.2 mIU/L"
         <?php endif; ?>
         </div>
 
-        <!-- AI Results -->
+        
         <?php if ($ai_result): ?>
             <?php if (isset($ai_result['error'])): ?>
                 <div class="bg-amber-500/10 border border-amber-500/30 rounded-3xl p-8 mb-8 text-center">
@@ -639,7 +639,7 @@ TSH: 6.2 mIU/L"
                 $style = $urgency_styles[$ai_result['urgency']];
                 ?>
                 <div class="<?= $style['bg'] ?> border <?= $style['border'] ?> rounded-3xl p-8 mb-8">
-                    <!-- Urgency Badge -->
+                    
                     <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
                         <div class="flex items-center gap-3">
                             <i class="fa-solid <?= $style['icon'] ?> <?= $style['text'] ?> text-3xl"></i>
@@ -660,7 +660,7 @@ TSH: 6.2 mIU/L"
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Possible Conditions -->
+                        
                         <div class="bg-slate-900/60 rounded-2xl p-6 border border-slate-700/50">
                             <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-microscope text-brand-400"></i> Possible Conditions</h4>
                             <ul class="space-y-2">
@@ -674,7 +674,7 @@ TSH: 6.2 mIU/L"
                             </ul>
                         </div>
 
-                        <!-- Recommended Specialist -->
+                        
                         <div class="bg-slate-900/60 rounded-2xl p-6 border border-slate-700/50">
                             <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-user-doctor text-accent-500"></i> Recommended Specialist</h4>
                             <div class="flex items-center gap-4 mb-4">
@@ -692,7 +692,7 @@ TSH: 6.2 mIU/L"
                         </div>
                     </div>
 
-                    <!-- Advice -->
+                    
                     <div class="mt-6 bg-slate-900/60 rounded-2xl p-6 border border-slate-700/50">
                         <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-lightbulb text-yellow-400"></i> AI Health Advice</h4>
                         <p class="text-slate-300"><?= htmlspecialchars($ai_result['advice']) ?></p>
@@ -703,7 +703,7 @@ TSH: 6.2 mIU/L"
                         <?php endif; ?>
                     </div>
 
-                    <!-- Blockchain verification notice -->
+                    
                     <div class="mt-4 flex items-center gap-2 text-brand-400 text-sm font-medium">
                         <i class="fa-solid fa-link"></i>
                         This triage session has been securely logged to your health record.
@@ -712,7 +712,7 @@ TSH: 6.2 mIU/L"
             <?php endif; ?>
         <?php endif; ?>
 
-        <!-- Past Triage History -->
+        
         <?php if (!empty($logs)): ?>
         <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8">
             <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
@@ -751,12 +751,12 @@ TSH: 6.2 mIU/L"
         else btn.className = btn.className.replace('text-slate-400','bg-brand-500 text-white');
     }
 
-    // ── Tesseract.js OCR ──────────────────────────────────────────────
+    
     document.getElementById('ocr-file-input').addEventListener('change', async function() {
         const file = this.files[0];
         if (!file) return;
 
-        // Show image preview
+        
         const reader = new FileReader();
         reader.onload = e => {
             document.getElementById('ocr-img-preview').src = e.target.result;
@@ -765,7 +765,7 @@ TSH: 6.2 mIU/L"
         };
         reader.readAsDataURL(file);
 
-        // Show status
+        
         document.getElementById('ocr-status').classList.remove('hidden');
         document.getElementById('ocr-use-btn').classList.add('hidden');
         document.getElementById('ocr-extracted-text').value = '';
@@ -802,17 +802,17 @@ TSH: 6.2 mIU/L"
 
     function useOcrText() {
         const ocrText = document.getElementById('ocr-extracted-text').value;
-        // Switch back to visible report tab and fill the textarea
+        
         const reportTextarea = document.querySelector('textarea[name="report_text"]');
         if (reportTextarea) {
             reportTextarea.value = ocrText;
             reportTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
             reportTextarea.focus();
-            // Flash the textarea
+            
             reportTextarea.style.borderColor = '#f97316';
             setTimeout(() => { reportTextarea.style.borderColor = ''; }, 1500);
         }
-        // Show a message
+        
         document.getElementById('ocr-use-btn').innerHTML = '<i class="fa-solid fa-check"></i> Text copied to report box — click Analyze!';
         document.getElementById('ocr-use-btn').classList.remove('bg-orange-500','hover:bg-orange-600');
         document.getElementById('ocr-use-btn').classList.add('bg-green-600');

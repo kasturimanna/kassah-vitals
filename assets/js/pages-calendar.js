@@ -3,7 +3,7 @@ var Calendar = function() {"use strict";
 	var defaultRange = new Object;
 	defaultRange.start = moment();
 	defaultRange.end = moment().add(1, 'days');
-	//Calendar
+	
 	var setFullCalendarEvents = function() {
 		var date = new Date();
 		dateToShow = date;
@@ -42,7 +42,7 @@ var Calendar = function() {"use strict";
 			allDay: true
 		}];
 	};
-	//function to initiate Full Calendar
+	
 	var runFullCalendar = function() {
 		$(".add-event").off().on("click", function() {
 			eventInputDateHandler();
@@ -58,22 +58,21 @@ var Calendar = function() {"use strict";
 		});
 
 		$('#event-categories div.event-category').each(function() {
-			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-			// it doesn't need to have a start or end
+			
+			
 			var eventObject = {
-				title: $.trim($(this).text()) // use the element's text as the event title
+				title: $.trim($(this).text()) 
 			};
-			// store the Event Object in the DOM element so we can get to it later
+			
 			$(this).data('eventObject', eventObject);
-			// make the event draggable using jQuery UI
+			
 			$(this).draggable({
 				zIndex: 999,
-				revert: true, // will cause the event to go back to its
-				revertDuration: 50 //  original position after the drag
+				revert: true, 
+				revertDuration: 50 
 			});
 		});
-		/* initialize the calendar
-		 -----------------------------------------------------------------*/
+		
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
@@ -91,16 +90,16 @@ var Calendar = function() {"use strict";
 			},
 			events: demoCalendar,
 			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			droppable: true, // this allows things to be dropped onto the calendar !!!
-			drop: function(date, allDay) {// this function is called when something is dropped
+			eventLimit: true, 
+			droppable: true, 
+			drop: function(date, allDay) {
 
-				// retrieve the dropped element's stored Event Object
+				
 				var originalEventObject = $(this).data('eventObject');
 
 				var $category = $(this).attr('data-class');
 				
-				// we need to copy it, so that multiple events don't have a reference to the same object
+				
 
 				var newEvent = new Object;
 				newEvent.title = originalEventObject.title;
@@ -112,9 +111,9 @@ var Calendar = function() {"use strict";
 
 				$('#full-calendar').fullCalendar('renderEvent', newEvent, true);
 
-				// is the "remove after drop" checkbox checked?
+				
 				if($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
+					
 					$(this).remove();
 				}
 			},
@@ -160,7 +159,7 @@ var Calendar = function() {"use strict";
 		var formEvent = $('.form-full-event');
 
 		formEvent.validate({
-			errorElement: "span", // contain the error msg in a span tag
+			errorElement: "span", 
 			errorClass: 'help-block',
 
 			ignore: "",
@@ -184,17 +183,17 @@ var Calendar = function() {"use strict";
 			},
 			highlight: function(element) {
 				$(element).closest('.help-block').removeClass('valid');
-				// display OK icon
+				
 				$(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
-				// add the Bootstrap error class to the control group
+				
 			},
-			unhighlight: function(element) {// revert the change done by hightlight
+			unhighlight: function(element) {
 				$(element).closest('.form-group').removeClass('has-error');
-				// set error class to the control group
+				
 			},
 			success: function(label, element) {
 				label.addClass('help-block valid');
-				// mark the current input as valid and display OK icon
+				
 				$(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
 			},
 			submitHandler: function(form) {

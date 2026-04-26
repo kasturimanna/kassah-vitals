@@ -1,8 +1,8 @@
 var UITreeview = function() {
 	"use strict";
-	//function to initiate jquery.dynatree
+	
 	var runTreeView = function() {
-		//Default Tree
+		
 		$('#tree').jstree({
 			"core" : {
 				"themes" : {
@@ -20,7 +20,7 @@ var UITreeview = function() {
 			"plugins" : ["types"]
 		});
 
-		//Checkbox
+		
 		$('#tree_2').jstree({
 			'plugins' : ["wholerow", "checkbox", "types"],
 			'core' : {
@@ -65,13 +65,13 @@ var UITreeview = function() {
 				}
 			}
 		});
-		// Drag & drop
+		
 		$("#tree_3").jstree({
 			"core" : {
 				"themes" : {
 					"responsive" : false
 				},
-				// so that create works
+				
 				"check_callback" : true,
 				'data' : [{
 					"text" : "Parent Node",
@@ -137,13 +137,13 @@ var UITreeview = function() {
 			},
 			"plugins" : ["dnd", "types"]
 		});
-		// Drag & drop
+		
 		$("#tree_4").jstree({
 			"core" : {
 				"themes" : {
 					"responsive" : false
 				},
-				// so that create works
+				
 				"check_callback" : true,
 				'data' : [{
 					"text" : "Parent Node",
@@ -221,7 +221,7 @@ var UITreeview = function() {
 		});
 	};
 	return {
-		//main function to initiate template pages
+		
 		init : function() {
 			runTreeView();
 		}

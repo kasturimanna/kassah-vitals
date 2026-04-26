@@ -1,7 +1,7 @@
 var ImageCropping = function () {
 	"use strict";
-    // function to initiate Jcrop
-    // Create variables (in this scope) to hold the API and image size
+    
+    
     var jcrop_api, boundx, boundy;
     var runBasicHandler = function () {
         $('#target').Jcrop({
@@ -19,8 +19,8 @@ var ImageCropping = function () {
             jcrop_api.setSelect([x1, y1, x2, y2]);
         });
     };
-    // Simple event handler, called from onChange and onSelect
-    // event handlers, as per the Jcrop invocation above
+    
+    
    var showCoords = function(c) {
         $('#x1').val(c.x);
         $('#y1').val(c.y);
@@ -34,7 +34,7 @@ var ImageCropping = function () {
         $('#coords input').val('');
     };
     var runPreviewPane = function () {
-        // Grab some information about the preview pane
+        
         var $preview = $('#preview-pane'),
             $pcnt = $('#preview-pane .preview-container'),
             $pimg = $('#preview-pane .preview-container img'),
@@ -45,13 +45,13 @@ var ImageCropping = function () {
             onSelect: updatePreview,
             aspectRatio: xsize / ysize
         }, function () {
-            // Use the API to get the real image size
+            
             var bounds = this.getBounds();
             boundx = bounds[0];
             boundy = bounds[1];
-            // Store the API in the jcrop_api variable
+            
             jcrop_api = this;
-            // Move the preview into the jcrop container for css positioning
+            
             $preview.appendTo(jcrop_api.ui.holder);
         });
 
@@ -92,13 +92,13 @@ var ImageCropping = function () {
         $('#shadetog').on('ifChecked', function (event) {
             $('#shadetxt').slideDown();
         });
-        // Define page sections
+        
         var sections = {
             bgc_buttons: 'Change bgColor',
             bgo_buttons: 'Change bgOpacity',
             anim_buttons: 'Animate Selection'
         };
-        // Define animation buttons
+        
         var ac = {
             anim1: [217, 122, 382, 284],
             anim2: [20, 20, 580, 380],
@@ -106,14 +106,14 @@ var ImageCropping = function () {
             anim4: [347, 165, 550, 355],
             anim5: [136, 55, 472, 183]
         };
-        // Define bgOpacity buttons
+        
         var bgo = {
             Low: .2,
             Mid: .5,
             High: .8,
             Full: 1
         };
-        // Define bgColor buttons
+        
         var bgc = {
             R: '#900',
             B: '#4BB6F0',
@@ -122,7 +122,7 @@ var ImageCropping = function () {
             W: 'white',
             K: 'black'
         };
-        // Create fieldset targets for buttons
+        
         for (var i in sections) insertSection(i, sections[i]);
 
         function create_btn(c) {
@@ -132,7 +132,7 @@ var ImageCropping = function () {
             return $o;
         }
         var a_count = 1;
-        // Create animation buttons
+        
         for (i in ac) {
             $('#anim_buttons .btn-group').append(create_btn(a_count++).click(animHandler(ac[i])), ' ');
         }
@@ -144,22 +144,22 @@ var ImageCropping = function () {
             });
             return false;
         }));
-        // Create bgOpacity buttons
+        
         for (i in bgo) {
             $('#bgo_buttons .btn-group').append(create_btn(i).click(setoptHandler('bgOpacity', bgo[i])), ' ');
         }
-        // Create bgColor buttons
+        
         for (i in bgc) {
             $('#bgc_buttons .btn-group').append(create_btn(i).css({
                 background: bgc[i],
                 color: ((i == 'K') || (i == 'R')) ? 'white' : 'black'
             }).click(setoptHandler('bgColor', bgc[i])), ' ');
         }
-        // Function to insert named sections into interface
+        
         function insertSection(k, v) {
             $('#interface').prepend($('<fieldset></fieldset>').attr('id', k).append($('<legend></legend>').append(v), '<div class="btn-toolbar"><div class="btn-group"></div></div>'));
         };
-        // Handler for option-setting buttons
+        
         function setoptHandler(k, v) {
             return function (e) {
                 $(e.target).closest('.btn-group').find('.active').removeClass('active');
@@ -170,7 +170,7 @@ var ImageCropping = function () {
                 return false;
             };
         };
-        // Handler for animation buttons
+        
         function animHandler(v) {
             return function (e) {
                 $(e.target).addClass('active');

@@ -1,7 +1,7 @@
 <?php 
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
-// --- ROBUST DATABASE CONNECTION (PDO) ---
+
 $host = 'localhost';
 $dbname = 'myhmsdb';
 $db_user = 'root';
@@ -12,7 +12,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    // --- AUTO-MIGRATION SAFEGUARD ---
+    
     $columns = $pdo->query("SHOW COLUMNS FROM appointmenttb")->fetchAll(PDO::FETCH_COLUMN);
     if (!in_array('current_status', $columns)) {
         $pdo->exec("ALTER TABLE appointmenttb ADD COLUMN current_status VARCHAR(20) DEFAULT 'Outpatient'");
@@ -33,7 +33,7 @@ try {
 
 $notification = '';
 
-// --- ACTION: ADD DOCTOR ---
+
 if(isset($_POST['docsub'])) {
     $stmt = $pdo->prepare("INSERT INTO doctb (username, password, email, spec, docFees) VALUES (?, ?, ?, ?, ?)");
     if($stmt->execute([$_POST['doctor'], $_POST['dpassword'], $_POST['demail'], $_POST['special'], $_POST['docFees']])) {
@@ -43,7 +43,7 @@ if(isset($_POST['docsub'])) {
     }
 }
 
-// --- ACTION: DELETE DOCTOR ---
+
 if(isset($_POST['docsub1'])) {
     $stmt = $pdo->prepare("DELETE FROM doctb WHERE email = ?");
     if($stmt->execute([$_POST['demail']])) {
@@ -53,7 +53,7 @@ if(isset($_POST['docsub1'])) {
     }
 }
 
-// --- CRASH-PROOF DATA FETCHING ---
+
 try { $active_admissions = $pdo->query("SELECT *, DATEDIFF(CURRENT_TIMESTAMP, admission_date) AS days_occupied FROM appointmenttb WHERE current_status = 'Admitted' AND userStatus = 1 AND doctorStatus = 1")->fetchAll(); } catch(Exception $e) { $active_admissions = []; }
 try { $all_patients = $pdo->query("SELECT * FROM patreg ORDER BY pid DESC")->fetchAll(); } catch(Exception $e) { $all_patients = []; }
 try { $docs = $pdo->query("SELECT * FROM doctb")->fetchAll(); } catch(Exception $e) { $docs = []; }
@@ -83,17 +83,17 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
         }
     </script>
     <style>
-        body { background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%); color: #334155; font-family: 'Plus Jakarta Sans', sans-serif;}
+        body { background: linear-gradient(135deg, 
         .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         .tab-content { display: none; animation: slideUp 0.3s ease-out; }
         .tab-content.active { display: block; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 6px; height: 6px;}
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: 
         
-        .alert-success { background: #d1fae5; color: #065f46; padding: 12px 16px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #a7f3d0; display: flex; align-items: center;}
-        .alert-error { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #fecaca; display: flex; align-items: center;}
+        .alert-success { background: 
+        .alert-error { background: 
     </style>
 </head>
 
@@ -178,7 +178,7 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
                             $isCritical = ($pat['oxygen_level'] <= $pat['alert_threshold']);
                             $days = max(1, $pat['days_occupied']);
                             
-                            // Check who updated this patient last
+                            
                             $last_log_stmt = $pdo->prepare("SELECT changed_by FROM patient_vitals_log WHERE appt_id = ? ORDER BY recorded_at DESC LIMIT 1");
                             $last_log_stmt->execute([$pat['ID']]);
                             $last_modifier = $last_log_stmt->fetchColumn() ?: "System";
@@ -190,15 +190,15 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
                                 <div>
                                     <span class="bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-full text-xs mb-2 inline-block"><i class="fa-solid fa-bed mr-1"></i> <?= htmlspecialchars($pat['bed_number']) ?></span>
                                     <h3 class="text-xl font-bold text-slate-800"><?= htmlspecialchars($pat['fname'] . ' ' . $pat['lname']) ?></h3>
-                                    <p class="text-slate-500 text-xs">Dr. <?= htmlspecialchars($pat['doctor']) ?> • Appt #<?= $pat['ID'] ?></p>
+                                    <p class="text-slate-500 text-xs">Dr. <?= htmlspecialchars($pat['doctor']) ?> • Appt 
                                 </div>
                                 <div class="text-right">
-                                    <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">PID: #<?= $pat['pid'] ?></span>
+                                    <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">PID: 
                                     <p class="text-brand-600 text-xs font-bold mt-2">DAY <?= $days ?></p>
                                 </div>
                             </div>
                             
-                            <!-- Display Current Vitals -->
+                            
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
                                     <p class="text-slate-400 text-[10px] uppercase font-bold tracking-widest mb-1">O2 Saturation</p>
@@ -214,7 +214,7 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
                             </div>
                         </div>
 
-                        <!-- Read-Only Vitals & Notes View -->
+                        
                         <div class="mt-auto pt-4 pb-6 px-6 bg-slate-50 border-t border-slate-100 flex flex-col gap-4">
                             <div class="flex justify-between items-center">
                                 <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"><i class="fa-solid fa-notes-medical text-brand-500 mr-1"></i> Clinical Status</span>
@@ -297,7 +297,7 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
                         <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
                             <div>
                                 <h3 class="font-bold text-2xl text-slate-800">Patient Dossier</h3>
-                                <p class="text-slate-500 text-sm"><?= htmlspecialchars($pat['fname'] . ' ' . $pat['lname']) ?> • PID #<?= $pat['pid'] ?></p>
+                                <p class="text-slate-500 text-sm"><?= htmlspecialchars($pat['fname'] . ' ' . $pat['lname']) ?> • PID 
                             </div>
                             <button onclick="closeHistoryModal(<?= $pat['pid'] ?>)" class="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:text-red-500 hover:border-red-200 transition shadow-sm"><i class="fa-solid fa-xmark"></i></button>
                         </div>
@@ -433,7 +433,7 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
                             <?php foreach($prescriptions as $p): ?>
                             <tr class="hover:bg-slate-50 transition">
                                 <td class="p-4 font-bold text-slate-900">Dr. <?= htmlspecialchars($p['doctor']) ?></td>
-                                <td class="p-4 text-brand-700">PID #<?= htmlspecialchars($p['pid']) ?> <br><span class="text-xs text-slate-500 font-normal"><?= htmlspecialchars($p['fname'] . ' ' . $p['lname']) ?></span></td>
+                                <td class="p-4 text-brand-700">PID 
                                 <td class="p-4 text-slate-500 text-xs"><?= htmlspecialchars($p['appdate']) ?><br><span class="text-slate-400"><?= htmlspecialchars($p['apptime']) ?></span></td>
                                 <td class="p-4 text-rose-600"><?= htmlspecialchars($p['disease']) ?></td>
                                 <td class="p-4 text-xs text-slate-500"><?= htmlspecialchars($p['allergy']) ?></td>
@@ -565,39 +565,39 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
     </div>
 
     <script>
-        // Bulletproof Tab Switching
+        
         function switchTab(tabId) {
-            // Hide all tab content
+            
             document.querySelectorAll('.tab-content').forEach(el => {
                 el.style.display = 'none';
                 el.classList.remove('active');
             });
             
-            // Reset all buttons
+            
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.className = "tab-btn w-full text-left px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold transition";
             });
             
-            // Show Target Tab
+            
             const targetContent = document.getElementById(tabId);
             if(targetContent) {
                 targetContent.style.display = 'block';
                 targetContent.classList.add('active');
             }
             
-            // Highlight Target Button
+            
             const activeBtn = document.querySelector(`button[data-target="${tabId}"]`);
             if(activeBtn) {
                 activeBtn.className = "tab-btn active-tab w-full text-left px-4 py-3 rounded-xl bg-brand-50 text-brand-700 font-bold transition";
             }
         }
 
-        // Initialize First Tab Safely
+        
         document.addEventListener("DOMContentLoaded", () => {
             switchTab('telemetry');
         });
 
-        // Clean Password Matcher Visualizer
+        
         function checkPass() {
             const pass = document.getElementById('dpass').value;
             const confirm = document.getElementById('cdpass').value;
@@ -606,15 +606,15 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
             if(confirm === "") { msg.innerHTML = ""; return; }
             
             if(pass === confirm) {
-                msg.style.color = "#059669"; // emerald-600
+                msg.style.color = "#059669"; 
                 msg.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Passwords match';
             } else {
-                msg.style.color = "#dc2626"; // red-600
+                msg.style.color = "#dc2626"; 
                 msg.innerHTML = '<i class="fa-solid fa-xmark mr-1"></i> Passwords do not match';
             }
         }
         
-        // Active Password Form Validation
+        
         function validatePasswords() {
             const pass = document.getElementById('dpass').value;
             const confirm = document.getElementById('cdpass').value;
@@ -625,7 +625,7 @@ try { $messages = $pdo->query("SELECT * FROM contact ORDER BY id DESC")->fetchAl
             return true;
         }
 
-        // Modals
+        
         function openHistoryModal(pid) {
             document.getElementById('modal-' + pid).classList.remove('hidden');
             document.body.style.overflow = 'hidden';

@@ -9,19 +9,19 @@ foreach($files as $file) {
     if($content === false) continue;
     $orig = $content;
     
-    // Plural specific
+    
     $content = str_ireplace('KASSAH Vitalss', 'KASSAH Vitals', $content);
     $content = str_ireplace('KASSAH Vitals', 'KASSAH Vitals', $content);
     $content = str_ireplace('KASSAH Vitals', 'KASSAH Vitals', $content);
     $content = str_ireplace('KASSAH Vitals Clinical', 'KASSAH Vitals', $content);
     $content = str_ireplace('KASSAH Vitals', 'KASSAH Vitals', $content);
     
-    // Span replacements (like: KASSAH Vitals <span...>Health</span>)
+    
     $content = preg_replace('/KASSAH Vitals(.*?<span[^>]*>)Health/i', 'KASSAH$1Vitals', $content);
     $content = preg_replace('/KASSAH Vitals(.*?<span[^>]*>)Clinical/i', 'KASSAH$1Vitals', $content);
     $content = preg_replace('/KASSAH Vitals(.*?<span[^>]*>)Admin/i', 'KASSAH$1Admin', $content);
     
-    // Remaining generic
+    
     $content = str_ireplace('KASSAH Vitals@KASSAH Vitals.org', 'support@kassah.org', $content);
     $content = str_ireplace('support@KASSAH Vitals.org', 'support@kassah.org', $content);
     $content = str_ireplace('@KASSAH Vitals.org', '@kassah.org', $content);

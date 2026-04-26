@@ -1,5 +1,5 @@
 var UINotifications = function() {"use strict";
-	//function to initiate Toastr notifications
+	
 	var initToastr = function() {
 		var i = -1;
 		var toastCount = 0;
@@ -80,7 +80,7 @@ var UINotifications = function() {"use strict";
 			$("#toastrOptions").text("Command: toastr[" + shortCutFunction + "](\"" + msg + ( title ? "\", \"" + title : '') + "\")\n\ntoastr.options = " + JSON.stringify(toastr.options, null, 2));
 
 			var $toast = toastr[shortCutFunction](msg, title);
-			// Wire up an event handler to a button in the toast, if it exists
+			
 			$toastlast = $toast;
 			if($toast.find('#okBtn').length) {
 				$toast.delegate('#okBtn', 'click', function() {

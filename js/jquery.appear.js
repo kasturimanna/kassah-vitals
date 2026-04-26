@@ -1,13 +1,4 @@
-/*
- * jQuery appear plugin
- *
- * Copyright (c) 2012 Andrey Sidorov
- * licensed under MIT license.
- *
- * https://github.com/morr/jquery.appear/
- *
- * Version: 0.3.3
- */
+
 (function($) {
   var selectors = [];
 
@@ -38,7 +29,7 @@
     }
   }
 
-  // "appeared" custom filter
+  
   $.expr[':']['appeared'] = function(element) {
     var $element = $(element);
     if (!$element.is(':visible')) {
@@ -62,7 +53,7 @@
   }
 
   $.fn.extend({
-    // watching for element's appearance in browser viewport
+    
     appear: function(options) {
       var opts = $.extend({}, defaults, options || {});
       var selector = this.selector || this;
@@ -89,7 +80,7 @@
   });
 
   $.extend({
-    // force elements's appearance check
+    
     force_appear: function() {
       if (check_binded) {
         process();

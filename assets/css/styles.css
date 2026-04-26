@@ -1,54 +1,7 @@
-/* ---------------------------------------------------------------------- 
->>> TABLE OF CONTENT
--------------------------------------------------------------------------
-1 - Basic Elements & Classes
-2 - Top Navbar
-3 - Sidebar
-4 - Nav
-5 - Main Container
-6 - Footer
-7 - Settings
-8 - Off sidebar
-9 - Utilities
-10 - Dropdown Menu
-11 - Tabs
-12 - Panles
-13 - Pagination
-14 - Accordion
-15 - Animations
-16 - Progress Bars
-17 - Labels and Badges
-18 - Form Elements
-19 - Icons
-20 - Buttons
-21 - Links
-22 - Form Wizard
-23 - Login
-24 - Invoice
-25 - Timeline
-26 - Tables
-27 - User Profile
-28 - Calendar
-29 - Todo
-30 - Chat
-31 - Messages
-32 - Modals
-33 - Maps
-34 - Pricing Table
-35 - Error
-36 - Page Title
-37 - Tooltips
-38 - Popovers
-39 - Date Picker
-/* ---------------------------------------------------------------------- */
-/*
 
 
 
-*/
-/* ---------------------------------------------------------------------- */
-/*  Basic Elements & Classes
-/* ---------------------------------------------------------------------- */
+
 html, body {
   height: 100%;
   width: 100%;
@@ -340,9 +293,8 @@ h5.over-title {
   }
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Top Navbar
-/* ---------------------------------------------------------------------- */
+
+
 .navbar {
   position: absolute;
   top: 0;
@@ -865,9 +817,8 @@ h5.over-title {
   }
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Sidebar
-/* ---------------------------------------------------------------------- */
+
+
 #sidebar {
   width: 260px;
   float: left;
@@ -968,9 +919,8 @@ h5.over-title {
   }
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Nav
-/* ---------------------------------------------------------------------- */
+
+
 .item-content {
   align-items: center;
   display: table-row;
@@ -1484,9 +1434,8 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   display: block;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Main Content
-/* ---------------------------------------------------------------------- */
+
+
 .main-content {
   min-height: 100%;
   position: relative;
@@ -1524,9 +1473,8 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   }
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Footer
-/* ---------------------------------------------------------------------- */
+
+
 #app > footer {
   background-color: #ffffff;
   border-top: 1px solid #c8c7cc;
@@ -1573,9 +1521,8 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   text-align: center;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Settings
-/* ---------------------------------------------------------------------- */
+
+
 .settings {
   position: fixed !important;
   right: -240px;
@@ -1820,9 +1767,8 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   background: #131E26;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  OFF SIDEBAR
-/* ---------------------------------------------------------------------- */
+
+
 #off-sidebar {
   bottom: 0;
   position: fixed;
@@ -2066,9 +2012,8 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   bottom: 0;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Utilities
-/* ---------------------------------------------------------------------- */
+
+
 .no-padding {
   padding: 0 !important;
 }
@@ -2666,9 +2611,8 @@ a.text-light:hover {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Background Colors
-/* ---------------------------------------------------------------------- */
+
+
 .no-bg {
   background: none !important;
 }
@@ -3114,9 +3058,8 @@ a.text-light:hover {
   white-space: nowrap;
 }
 
-/* ---------------------------------------------------------------------- */
-/* Dropdown Menu
-/* ---------------------------------------------------------------------- */
+
+
 .dropdown-menu.dropdown-dark {
   background-color: #2B3034;
   border: 1px solid #1A1C1E;
@@ -3266,9 +3209,8 @@ a.text-light:hover {
   padding: 5px 10px;
 }
 
-/* ---------------------------------------------------------------------- */
-/* Tabs
-/* ---------------------------------------------------------------------- */
+
+
 .nav-tabs {
   margin-bottom: 0;
   padding: 0;
@@ -3488,9 +3430,8 @@ a.text-light:hover {
   color: #2C2F3B;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Panels
-/* ---------------------------------------------------------------------- */
+
+
 .panel {
   background: none;
   -moz-box-shadow: none;
@@ -3930,9 +3871,8 @@ a.text-light:hover {
   clear: both;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Backdrop
-/* ---------------------------------------------------------------------- */
+
+
 .full-white-backdrop {
   background-color: #FFFFFF;
   display: none;
@@ -3960,9 +3900,8 @@ a.text-light:hover {
   top: 20px;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Spinner
-/* ---------------------------------------------------------------------- */
+
+
 .csspinner {
   position: relative;
 }
@@ -4058,9 +3997,8 @@ a.text-light:hover {
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
 }
-/* ---------------------------------------------------------------------- */
-/*  Pagination
-/* ---------------------------------------------------------------------- */
+
+
 .pagination > li > a, .pagination > li > span {
   margin-left: 5px;
   padding: 5px 10px;
@@ -4203,9 +4141,8 @@ a.text-light:hover {
   color: #C82E29;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Accordion
-/* ---------------------------------------------------------------------- */
+
+
 .accordion .panel {
   border: none;
   -moz-border-radius: 0;
@@ -4296,9 +4233,8 @@ a.text-light:hover {
   border-top: 1px solid transparent;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Animations
-/* ---------------------------------------------------------------------- */
+
+
 .smooth.ng-animate {
   position: absolute;
   width: 100%;
@@ -4447,9 +4383,8 @@ a.text-light:hover {
     color: red;
   }
 }
-/* ---------------------------------------------------------------------- */
-/* Progress Bar
-/* ---------------------------------------------------------------------- */
+
+
 .progress {
   box-shadow: none;
 }
@@ -4494,9 +4429,8 @@ a.text-light:hover {
   width: 60px !important;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Labels and Badges
-/* ---------------------------------------------------------------------- */
+
+
 .badge {
   background-color: #007AFF;
 }
@@ -4558,9 +4492,8 @@ a.text-light:hover {
   background-color: #555555;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Forms
-/* ---------------------------------------------------------------------- */
+
+
 fieldset {
   background: #ffffff;
   border: 1px solid #e6e8e8;
@@ -4979,7 +4912,7 @@ textarea.autosize.area-animated:focus {
   max-width: 50px;
 }
 
-/* Default custom select inspired by tympanus.net */
+
 div.cs-select {
   display: inline-block;
   vertical-align: middle;
@@ -5007,7 +4940,7 @@ div.cs-select.disabled span {
 
 div.cs-select:focus {
   outline: none;
-  /* For better accessibility add a style for this in your skin */
+  
 }
 
 .cs-select select {
@@ -5024,7 +4957,7 @@ div.cs-select:focus {
   text-overflow: ellipsis;
 }
 
-/* Placeholder and selected option */
+
 .cs-select > span {
   padding-right: 3em;
 }
@@ -5061,7 +4994,7 @@ div.cs-select:focus {
   z-index: 101;
 }
 
-/* Options */
+
 .cs-select .cs-options {
   position: absolute;
   overflow: hidden;
@@ -5089,7 +5022,7 @@ div.cs-select:focus {
   background-color: #ddd;
 }
 
-/* Optgroup and optgroup label */
+
 .cs-select li.cs-optgroup ul {
   padding-left: 1em;
 }
@@ -5218,7 +5151,7 @@ div.cs-skin-slide::before {
   transition-delay: 0.35s;
 }
 
-/* more options need more delay declaration */
+
 .cs-skin-slide .cs-options li span {
   padding: 0.8em 1em;
 }
@@ -5274,7 +5207,7 @@ div.cs-skin-slide::before {
   font-family: 'fontawesome';
 }
 
-/* Skin Elastic */
+
 div.cs-skin-elastic {
   background: transparent;
   font-size: 14px;
@@ -5691,9 +5624,8 @@ input[type="radio"], input[type="checkbox"] {
   background: #804C75;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Icons
-/* ---------------------------------------------------------------------- */
+
+
 .fa-round {
   border: 0.1em solid #eee;
   border-radius: 100%;
@@ -5738,9 +5670,8 @@ input[type="radio"], input[type="checkbox"] {
   font-size: 100px;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Buttons
-/* ---------------------------------------------------------------------- */
+
+
 .btn {
   transition: all 0.3s ease 0s !important;
   background-image: none !important;
@@ -7931,9 +7862,7 @@ input[type="radio"], input[type="checkbox"] {
   white-space: nowrap;
 }
 
-/***
-Dropdown checkboxes
-***/
+
 .dropdown-checkboxes {
   padding: 5px;
 }
@@ -7953,9 +7882,7 @@ Dropdown checkboxes
   margin: 0;
 }
 
-/***
-Social Icons
-***/
+
 .social-icons ul {
   list-style: none;
   margin: 0 0 -1px 0;
@@ -8223,10 +8150,9 @@ Social Icons
   top: 0;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Links
-/* ---------------------------------------------------------------------- */
-/*from http://tympanus.net/Development/CreativeLinkEffects/*/
+
+
+
 nav.links {
   text-align: center;
 }
@@ -8248,7 +8174,7 @@ nav.links a {
   position: relative;
 }
 
-/* Effect 1: Brackets */
+
 .cl-effect-1 a::before,
 .cl-effect-1 a::after {
   display: inline-block;
@@ -8284,7 +8210,7 @@ nav.links a {
   transform: translateX(0px);
 }
 
-/* Effect 2: 3D rolling links, idea from http://hakim.se/thoughts/rolling-links */
+
 .cl-effect-2 a {
   line-height: 44px;
   -webkit-perspective: 1000px;
@@ -8340,7 +8266,7 @@ nav.links a {
   background: #0062cc;
 }
 
-/* Effect 3: bottom line slides/fades in */
+
 .cl-effect-3 a {
   padding: 8px 0;
 }
@@ -8370,7 +8296,7 @@ nav.links a {
   transform: translateY(0px);
 }
 
-/* Effect 4: bottom border enlarge */
+
 .cl-effect-4 a {
   padding: 0 0 10px;
 }
@@ -8401,7 +8327,7 @@ nav.links a {
   transform: translateY(0px);
 }
 
-/* Effect 5: same word slide in */
+
 .cl-effect-5 a {
   overflow: hidden;
   padding: 0 4px;
@@ -8433,7 +8359,7 @@ nav.links a {
   transform: translateY(-100%);
 }
 
-/* Effect 5: same word slide in and border bottom */
+
 .cl-effect-6 a {
   margin: 0 10px;
   padding: 10px 20px;
@@ -8474,7 +8400,7 @@ nav.links a {
   height: 100%;
 }
 
-/* Effect 7: second border slides up */
+
 .cl-effect-7 a {
   padding: 12px 10px 10px;
   color: #566473;
@@ -8521,7 +8447,7 @@ nav.links a {
   opacity: 1;
 }
 
-/* Effect 8: border slight translate */
+
 .cl-effect-8 a {
   padding: 10px 20px;
 }
@@ -8564,7 +8490,7 @@ nav.links a {
   transform: translateY(0px) translateX(0px);
 }
 
-/* Effect 9: second text and borders */
+
 .cl-effect-9 a {
   margin: 0 20px;
   padding: 18px 20px;
@@ -8642,7 +8568,7 @@ nav.links a {
   transform: translateY(0%);
 }
 
-/* Effect 10: reveal, push out */
+
 .cl-effect-10 {
   position: relative;
   z-index: 1;
@@ -8694,7 +8620,7 @@ nav.links a {
   transform: translateX(0%);
 }
 
-/* Effect 11: text fill based on Lea Verou's animation http://dabblet.com/gist/6046779 */
+
 .cl-effect-11 a {
   padding: 10px 0;
   border-top: 2px solid #007AFF;
@@ -8722,7 +8648,7 @@ nav.links a {
   max-width: 100%;
 }
 
-/* Effect 12: circle */
+
 .cl-effect-12 a::before,
 .cl-effect-12 a::after {
   position: absolute;
@@ -8761,7 +8687,7 @@ nav.links a {
   transform: translateX(-50%) translateY(-50%) scale(1);
 }
 
-/* Effect 13: three circles */
+
 .cl-effect-13 a {
   -webkit-transition: color 0.3s;
   -moz-transition: color 0.3s;
@@ -8796,7 +8722,7 @@ nav.links a {
   color: #007AFF;
 }
 
-/* Effect 14: border switch */
+
 .cl-effect-14 a {
   padding: 0 20px;
   height: 45px;
@@ -8862,7 +8788,7 @@ nav.links a {
   transform: rotate(0deg) translateX(50%);
 }
 
-/* Effect 15: scale down, reveal */
+
 .cl-effect-15 a {
   color: rgba(0, 122, 255, 0.7) !important;
   font-weight: 700;
@@ -8886,7 +8812,7 @@ nav.links a {
   opacity: 0;
 }
 
-/* Effect 16: fall down */
+
 .cl-effect-16 a {
   color: #8e8e93;
   text-shadow: 0 0 1px rgba(111, 134, 134, 0.3);
@@ -8915,7 +8841,7 @@ nav.links a {
   opacity: 1;
 }
 
-/* Effect 17: move up fade out, push border */
+
 .cl-effect-17 a {
   color: #8e8e93;
   text-shadow: none;
@@ -8967,7 +8893,7 @@ nav.links a {
   transform: translateY(0px);
 }
 
-/* Effect 18: cross */
+
 .cl-effect-18 {
   position: relative;
   z-index: 1;
@@ -9037,7 +8963,7 @@ nav.links a {
   transform: rotate(-45deg);
 }
 
-/* Effect 19: 3D side */
+
 .cl-effect-19 a {
   line-height: 2em;
   margin: 15px;
@@ -9098,7 +9024,7 @@ nav.links a {
   background: #3395ff;
 }
 
-/* Effect 20: 3D side */
+
 .cl-effect-20 a {
   line-height: 2em;
   -webkit-perspective: 800px;
@@ -9160,7 +9086,7 @@ nav.links a {
   transform: rotateX(10deg);
 }
 
-/* Effect 21: borders slight translate */
+
 .cl-effect-21 a {
   padding: 10px;
   color: #237546;
@@ -9217,9 +9143,8 @@ nav.links a {
   transform: translateY(0px);
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Form Wizard
- /* ---------------------------------------------------------------------- */
+
+
 .swMain > ul {
   display: table;
   list-style: none;
@@ -9356,9 +9281,8 @@ nav.links a {
   display: none;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Login
-/* ---------------------------------------------------------------------- */
+
+
 .main-login {
   margin-top: 0;
   position: relative;
@@ -9425,9 +9349,8 @@ nav.links a {
   display: block;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Lock Screen
-/* ---------------------------------------------------------------------- */
+
+
 .lock-screen {
   margin: -150px 0 0 -100px;
   width: 200px;
@@ -9459,9 +9382,8 @@ nav.links a {
   margin-bottom: 5px;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Invoice
-/* ---------------------------------------------------------------------- */
+
+
 .invoice {
   margin-bottom: 20px;
 }
@@ -9504,9 +9426,8 @@ nav.links a {
   margin-top: 20px;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Timeline
-/* ---------------------------------------------------------------------- */
+
+
 div.timeline {
   margin: 0;
   overflow: hidden;
@@ -9797,7 +9718,7 @@ div.timeline .column_center .timeline_element:before, div.timeline .column_cente
   font-weight: bold !important;
 }
 
-/* ie8 fixes */
+
 .ie8 div.timeline_element:after {
   display: none;
 }
@@ -9806,7 +9727,7 @@ div.timeline .column_center .timeline_element:before, div.timeline .column_cente
   display: none;
 }
 
-/**/
+
 .timeline-xs {
   margin: 0;
   padding: 0;
@@ -9869,7 +9790,7 @@ div.timeline .column_center .timeline_element:before, div.timeline .column_cente
 }
 
 @media (max-width: 991px) {
-  /* 991px */
+  
   div.timeline {
     margin: 0;
   }
@@ -9892,9 +9813,8 @@ div.timeline .column_center .timeline_element:before, div.timeline .column_cente
     display: none;
   }
 }
-/* ---------------------------------------------------------------------- */
-/*  Tables
-/* ---------------------------------------------------------------------- */
+
+
 .table {
   border-collapse: separate;
 }
@@ -10043,9 +9963,8 @@ td.small-width {
   }
 }
 
-/* ---------------------------------------------------------------------- */
-/*  User profile
-/* ---------------------------------------------------------------------- */
+
+
 .user-left {
   border-right: 1px solid #DDDDDD;
   padding-right: 15px;
@@ -10124,9 +10043,8 @@ td.small-width {
   margin-top: 0;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Calendar
-/* ---------------------------------------------------------------------- */
+
+
 .calAlert {
   width: 595px;
   float: right;
@@ -10158,9 +10076,8 @@ td.small-width {
   margin-bottom: 10px;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  ToDo
-/* ---------------------------------------------------------------------- */
+
+
 .todo {
   list-style: none;
   margin: 0;
@@ -10200,9 +10117,8 @@ td.small-width {
   z-index: 2;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Chat
-/* ---------------------------------------------------------------------- */
+
+
 .discussion {
   list-style: none;
   margin: 0 !important;
@@ -10366,9 +10282,8 @@ td.small-width {
   margin-right: 8px;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Messages
-/* ---------------------------------------------------------------------- */
+
+
 .panel-body.messages {
   padding: 0;
 }
@@ -10736,7 +10651,7 @@ td.small-width {
   }
 }
 
-/* ie8 fixes */
+
 .ie8 .messages-list .messages-item .messages-item-star {
   display: none;
 }
@@ -10745,16 +10660,15 @@ td.small-width {
   display: block;
 }
 
-/**/
-/* ie8 fixes */
+
+
 .ie8 .messages-list .messages-item .messages-item-time .messages-item-actions {
   display: none;
 }
 
-/**/
-/* ---------------------------------------------------------------------- */
-/*  Modals
-/* ---------------------------------------------------------------------- */
+
+
+
 .modal-backdrop {
   background-color: #000;
   bottom: 0;
@@ -11010,9 +10924,8 @@ td.small-width {
   border-radius: 0;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Maps
-/* ---------------------------------------------------------------------- */
+
+
 #map_canvas {
   position: relative;
 }
@@ -11021,9 +10934,8 @@ td.small-width {
   height: 400px;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Pricing Tables
-/* ---------------------------------------------------------------------- */
+
+
 .pricing-table .plan {
   border: none;
   margin: 20px 0;
@@ -11131,9 +11043,8 @@ td.small-width {
   background: #731b18;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  404 and 500 error
-/* ---------------------------------------------------------------------- */
+
+
 .error-full-page .page-error {
   margin-top: 60px;
 }
@@ -11200,9 +11111,8 @@ td.small-width {
   margin-top: 5%;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Page Title
-/* ---------------------------------------------------------------------- */
+
+
 #page-title {
   border-bottom: 1px solid #eee;
   padding: 50px 0;
@@ -11288,9 +11198,8 @@ td.small-width {
   top: 0 !important;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Tooltips
-/* ---------------------------------------------------------------------- */
+
+
 .static-tooltip .tooltip {
   display: inline-block;
   margin: 10px 20px;
@@ -11298,9 +11207,8 @@ td.small-width {
   position: relative;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Popover
-/* ---------------------------------------------------------------------- */
+
+
 .static-popover .popover {
   display: block;
   float: left;
@@ -11309,9 +11217,8 @@ td.small-width {
   width: 260px;
 }
 
-/* ---------------------------------------------------------------------- */
-/*  Datepicker
-/* ---------------------------------------------------------------------- */
+
+
 .picker__box {
   border-color: #ffffff !important;
 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Include your database connection logic
+
 $host = 'localhost';
 $dbname = 'myhmsdb';
 $db_user = 'root';
@@ -23,7 +23,7 @@ if(isset($_GET['ID'])) {
         die("Record not found.");
     }
 } else {
-    header("Location: patient-panel.php"); // Redirect back if no ID
+    header("Location: patient-panel.php"); 
 }
 ?>
 
@@ -48,7 +48,7 @@ if(isset($_GET['ID'])) {
             </div>
             <div class="text-right">
                 <p class="font-bold">Date: <?= $bill['appdate'] ?></p>
-                <p class="text-sm text-gray-500">Invoice ID: #INV-00<?= $bill['ID'] ?></p>
+                <p class="text-sm text-gray-500">Invoice ID: 
             </div>
         </div>
 

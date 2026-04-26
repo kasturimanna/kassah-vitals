@@ -9,7 +9,7 @@ var Main = function() {
 		mobile : 480
 	};
 	$(".current-year").text((new Date()).getFullYear());
-	//sidebar
+	
 	var sidebarHandler = function() {
 		var eventObject = isTouch() ? 'click' : 'mouseenter', elem = $('#sidebar'), ul = "", menuTitle, _this, sidebarMobileToggler = $('.sidebar-mobile-toggler'), $winOffsetTop = 0, $winScrollTop = 0, $appWidth;
 
@@ -29,7 +29,7 @@ var Main = function() {
 				e.stopPropagation();
 				e.preventDefault();
 			} else {
-				//_this.parent().addClass("active");
+				
 
 			}
 		});
@@ -136,7 +136,7 @@ var Main = function() {
 			});
 		};
 	};
-	// navbar collapse
+	
 	var navbarHandler = function() {
 		var navbar = $('.navbar-collapse > .nav');
 		var pageHeight = $win.innerHeight() - $('header').outerHeight();
@@ -158,15 +158,15 @@ var Main = function() {
 		}
 
 	};
-	// tooltips handler
+	
 	var tooltipHandler = function() {
 		$('[data-toggle="tooltip"]').tooltip();
 	};
-	// popovers handler
+	
 	var popoverHandler = function() {
 		$('[data-toggle="popover"]').popover();
 	};
-	// perfect scrollbar
+	
 	var perfectScrollbarHandler = function() {
 		var pScroll = $(".perfect-scrollbar");
 
@@ -180,7 +180,7 @@ var Main = function() {
 
 		}
 	};
-	//toggle class
+	
 	var toggleClassOnElement = function() {
 		var toggleAttribute = $('*[data-toggle-class]');
 		toggleAttribute.each(function() {
@@ -216,7 +216,7 @@ var Main = function() {
 
 		});
 	};
-	//switchery
+	
 	var switcheryHandler = function() {
 		var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
@@ -224,7 +224,7 @@ var Main = function() {
 			var switchery = new Switchery(html);
 		});
 	};
-	//search form
+	
 	var searchHandler = function() {
 		var elem = $('.search-form');
 		var searchForm = elem.children('form');
@@ -246,7 +246,7 @@ var Main = function() {
 			}
 		};
 	};
-	// settings
+	
 	var settingsHandler = function() {
 		var clipSetting = {}, appSetting = {};
 		clipSetting = {
@@ -333,7 +333,7 @@ var Main = function() {
 		}
 
 	};
-	// function to allow a button or a link to open a tab
+	
 	var showTabHandler = function(e) {
 		if ($(".show-tab").length) {
 			$('.show-tab').on('click', function(e) {
@@ -345,7 +345,7 @@ var Main = function() {
 			});
 		}
 	};
-	// function to enable panel scroll with perfectScrollbar
+	
 	var panelScrollHandler = function() {
 		var panelScroll = $(".panel-scroll");
 		if (panelScroll.length && !isMobile()) {
@@ -354,10 +354,10 @@ var Main = function() {
 			});
 		}
 	};
-	//function to activate the panel tools
+	
 	var panelToolsHandler = function() {
 
-		// panel close
+		
 		$('body').on('click', '.panel-close', function(e) {
 			var panel = $(this).closest('.panel');
 
@@ -376,7 +376,7 @@ var Main = function() {
 
 			e.preventDefault();
 		});
-		// panel refresh
+		
 		$('body').on('click', '.panel-refresh', function(e) {
 			var $this = $(this), csspinnerClass = 'csspinner', panel = $this.parents('.panel').eq(0), spinner = $this.data('spinner') || "load1";
 			panel.addClass(csspinnerClass + ' ' + spinner);
@@ -386,7 +386,7 @@ var Main = function() {
 			}, 1000);
 			e.preventDefault();
 		});
-		// panel collapse
+		
 		$('body').on('click', '.panel-collapse', function(e) {
 			e.preventDefault();
 			var el = $(this);
@@ -399,7 +399,7 @@ var Main = function() {
 		});
 
 	};
-	// function to activate the Go-Top button
+	
 	var goTopHandler = function(e) {
 		$('.go-top').on('click', function(e) {
 			$("html, body").animate({
@@ -413,7 +413,7 @@ var Main = function() {
 			new SelectFx(el);
 		});
 	};
-	// Window Resize Function
+	
 	var resizeHandler = function(func, threshold, execAsap) {
 		$(window).resize(function() {
 			navbarHandler();

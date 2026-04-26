@@ -3,7 +3,7 @@
 
 <nav>
 						
-						<!-- start: MAIN NAVIGATION MENU -->
+						
 						<div class="navbar-title">
 							<span>Main Navigation</span>
 						</div>
@@ -48,7 +48,7 @@
 
 
 						</ul>
-						<!-- end: CORE FEATURES -->
+						
 						
 					</nav>
 					</div>

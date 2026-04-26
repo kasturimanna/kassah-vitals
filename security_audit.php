@@ -1,32 +1,32 @@
 <?php
-// ============================================================
-// KASSAH Vitals — Security Audit Center (Admin Only)
-// Logs all access events & displays cybersecurity dashboard
-// ============================================================
+
+
+
+
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 if (!isset($_SESSION['admin'])) { header("Location: index.php"); exit(); }
 
 $pdo = new PDO("mysql:host=localhost;dbname=myhmsdb", "root", "");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Log this admin access
+
 $stmt = $pdo->prepare("INSERT INTO security_audit_log (event_type, user_type, user_id, description, ip_address, user_agent) VALUES (?, ?, ?, ?, ?, ?)");
 $stmt->execute(['PAGE_ACCESS', 'ADMIN', $_SESSION['admin'], 'Accessed Security Audit Center', $_SERVER['REMOTE_ADDR'] ?? 'N/A', $_SERVER['HTTP_USER_AGENT'] ?? 'N/A']);
 
-// Fetch audit stats
+
 $total_events = $pdo->query("SELECT COUNT(*) FROM security_audit_log")->fetchColumn();
 $failed_logins = $pdo->query("SELECT COUNT(*) FROM security_audit_log WHERE event_type = 'LOGIN_FAILED'")->fetchColumn();
 $successful_logins = $pdo->query("SELECT COUNT(*) FROM security_audit_log WHERE event_type = 'LOGIN_SUCCESS'")->fetchColumn();
 $total_blocks = $pdo->query("SELECT COUNT(*) FROM blockchain_ledger")->fetchColumn();
 $ai_triages = $pdo->query("SELECT COUNT(*) FROM ai_triage_log")->fetchColumn();
 
-// Recent audit logs
+
 $logs = $pdo->query("SELECT * FROM security_audit_log ORDER BY created_at DESC LIMIT 50")->fetchAll();
 
-// Top IPs
+
 $top_ips = $pdo->query("SELECT ip_address, COUNT(*) as count FROM security_audit_log GROUP BY ip_address ORDER BY count DESC LIMIT 5")->fetchAll();
 
-// Critical alerts (failed logins)
+
 $critical = $pdo->query("SELECT * FROM security_audit_log WHERE event_type = 'LOGIN_FAILED' ORDER BY created_at DESC LIMIT 5")->fetchAll();
 ?>
 <!DOCTYPE html>
@@ -72,7 +72,7 @@ $critical = $pdo->query("SELECT * FROM security_audit_log WHERE event_type = 'LO
 
     <div class="max-w-7xl mx-auto pt-28 pb-16 px-6">
 
-        <!-- Header -->
+        
         <div class="mb-10">
             <div class="flex items-center gap-4 mb-4">
                 <div class="w-14 h-14 bg-red-500/20 rounded-2xl flex items-center justify-center">
@@ -85,7 +85,7 @@ $critical = $pdo->query("SELECT * FROM security_audit_log WHERE event_type = 'LO
             </div>
         </div>
 
-        <!-- Stats Grid -->
+        
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             <div class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-5 text-center">
                 <i class="fa-solid fa-list-check text-brand-400 text-2xl mb-2 block"></i>
@@ -115,7 +115,7 @@ $critical = $pdo->query("SELECT * FROM security_audit_log WHERE event_type = 'LO
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-            <!-- Critical Alerts -->
+            
             <div class="bg-red-500/5 border border-red-500/20 rounded-3xl p-6">
                 <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-triangle-exclamation text-red-400"></i> Recent Failed Logins
@@ -138,7 +138,7 @@ $critical = $pdo->query("SELECT * FROM security_audit_log WHERE event_type = 'LO
                 <?php endif; ?>
             </div>
 
-            <!-- Top IPs -->
+            
             <div class="bg-slate-900/60 border border-slate-700/50 rounded-3xl p-6">
                 <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-globe text-accent-400"></i> Top Access IPs
@@ -156,7 +156,7 @@ $critical = $pdo->query("SELECT * FROM security_audit_log WHERE event_type = 'LO
                 </div>
             </div>
 
-            <!-- Security Score -->
+            
             <div class="bg-slate-900/60 border border-slate-700/50 rounded-3xl p-6 flex flex-col">
                 <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-gauge-high text-brand-400"></i> Security Score
@@ -187,7 +187,7 @@ $critical = $pdo->query("SELECT * FROM security_audit_log WHERE event_type = 'LO
             </div>
         </div>
 
-        <!-- Full Audit Log Table -->
+        
         <div class="bg-slate-900/60 border border-slate-700/50 rounded-3xl p-6 overflow-hidden">
             <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
                 <i class="fa-solid fa-scroll text-brand-400"></i> Full Audit Event Log

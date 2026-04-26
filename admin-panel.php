@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) { session_start(); }
 include('func.php');  
 include('newfunc.php');
 
-// --- ROBUST DATABASE CONNECTION (PDO) ---
+
 $host = 'localhost';
 $dbname = 'myhmsdb';
 $db_user = 'root';
@@ -26,7 +26,7 @@ $contact = $_SESSION['contact'];
 
 $notification = '';
 
-// --- FETCH LATEST APPOINTMENT DATA (THIS DETERMINES THE UI STATE) ---
+
 $vitals_stmt = $pdo->prepare("
     SELECT ID as appt_id, bed_number, current_status, oxygen_level, oxygen_liters, heart_rate, admission_date, daily_update, DATEDIFF(CURRENT_TIMESTAMP, admission_date) AS days_occupied 
     FROM appointmenttb 
@@ -36,7 +36,7 @@ $vitals_stmt = $pdo->prepare("
 $vitals_stmt->execute([$pid]);
 $my_appt = $vitals_stmt->fetch();
 
-// CRITICAL FIX: Determine status based on the latest appointment row
+
 $is_admitted = false;
 $current_ui_status = "Outpatient";
 
@@ -47,10 +47,10 @@ if ($my_appt) {
     }
 }
 
-// --- FETCH HISTORICAL GRAPH DATA (Only if admitted) ---
+
 $graph_labels = []; $graph_spo2 = []; $graph_liters = [];
 if ($is_admitted && $my_appt) {
-    // FIX: Fetch the LAST 10 records chronologically using a subquery
+    
     $history_stmt = $pdo->prepare("
         SELECT * FROM (
             SELECT * FROM patient_vitals_log 
@@ -69,12 +69,12 @@ if ($is_admitted && $my_appt) {
     }
 }
 
-// --- FETCH LATEST MEDICINES/PRESCRIPTION ---
+
 $meds_stmt = $pdo->prepare("SELECT doctor, disease, prescription, appdate FROM prestb WHERE pid = ? ORDER BY appdate DESC, apptime DESC LIMIT 1");
 $meds_stmt->execute([$pid]);
 $latest_meds = $meds_stmt->fetch();
 
-// --- APPOINTMENT BOOKING LOGIC ---
+
 if(isset($_POST['app-submit'])) {
     $doctor = $_POST['doctor']; $docFees = $_POST['docFees']; $appdate = $_POST['appdate']; $apptime = $_POST['apptime'];
     date_default_timezone_set('Asia/Kolkata');
@@ -127,13 +127,13 @@ if(isset($_POST['app-submit'])) {
         }
     </script>
     <style>
-        body { background: #020617; color: #cbd5e1; margin: 0; padding: 0; }
+        body { background: 
         .glass-card { background: rgba(15,23,42,0.7); backdrop-filter: blur(12px); border: 1px solid rgba(51,65,85,0.5); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .tab-content { display: none; animation: slideUp 0.3s ease-out; }
         .tab-content.active { display: block; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: 
     </style>
 </head>
 
@@ -155,7 +155,7 @@ if(isset($_POST['app-submit'])) {
             <div class="text-right hidden md:block">
                 <p class="text-sm font-bold text-white"><?= htmlspecialchars($fname . ' ' . $lname) ?></p>
                 <p class="text-xs <?= $is_admitted ? 'text-brand-400 bg-brand-500/10 border border-brand-500/30' : 'text-slate-400 bg-slate-800' ?> font-semibold px-2 py-0.5 rounded-full inline-block mt-1">
-                    PID: #<?= htmlspecialchars($pid) ?> | <?= $current_ui_status ?>
+                    PID: 
                 </p>
             </div>
             <a href="logout.php" class="bg-slate-800 border border-slate-700 text-slate-400 hover:text-red-400 px-5 py-2.5 rounded-xl text-sm font-bold transition">
@@ -199,7 +199,7 @@ if(isset($_POST['app-submit'])) {
 
             <div id="dash" class="tab-content active max-w-7xl mx-auto">
                 <?php if($is_admitted): ?>
-                    <!-- ADMITTED TELEMETRY VIEW -->
+                    
                     <div class="flex justify-between items-end mb-8">
                         <div>
                             <h2 class="text-3xl font-extrabold text-slate-800">Health Telemetry</h2>
@@ -252,7 +252,7 @@ if(isset($_POST['app-submit'])) {
                     </div>
 
                 <?php else: ?>
-                    <!-- DEFAULT DASHBOARD VIEW -->
+                    
                     <div class="mb-8">
                         <h2 class="text-3xl font-extrabold text-white">Welcome, <?= htmlspecialchars($fname) ?> 👋</h2>
                         <p class="text-slate-400 font-medium mt-1">What would you like to do today?</p>
@@ -278,7 +278,7 @@ if(isset($_POST['app-submit'])) {
                              <p class="text-slate-400 text-sm">Access your prescriptions and download invoices.</p>
                         </div>
                     </div>
-                    <!-- Advanced Feature Cards -->
+                    
                     <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Advanced Healthcare Features</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <a href="ai_triage.php" class="glass-card p-6 rounded-2xl border border-brand-500/30 hover:border-brand-500/60 hover:shadow-lg hover:shadow-brand-500/10 transition group flex items-start gap-4">
@@ -309,7 +309,7 @@ if(isset($_POST['app-submit'])) {
                 <?php endif; ?>
             </div>
 
-            <!-- TAB: BOOK APPOINTMENT -->
+            
             <div id="book" class="tab-content max-w-4xl mx-auto">
                 <div class="mb-8"><h2 class="text-3xl font-extrabold text-slate-800">Book Appointment</h2></div>
                 <div class="glass-card p-8 rounded-2xl">
@@ -352,7 +352,7 @@ if(isset($_POST['app-submit'])) {
                 </div>
             </div>
 
-            <!-- TAB: HISTORY -->
+            
             <div id="history" class="tab-content max-w-6xl mx-auto">
                 <div class="mb-8"><h2 class="text-3xl font-extrabold text-slate-800">My Appointments</h2></div>
                 <div class="glass-card rounded-2xl overflow-hidden">
@@ -386,7 +386,7 @@ if(isset($_POST['app-submit'])) {
                 </div>
             </div>
 
-            <!-- TAB: RECORDS -->
+            
             <div id="prescriptions" class="tab-content max-w-6xl mx-auto">
                 <div class="mb-8"><h2 class="text-3xl font-extrabold text-slate-800">Medical Records</h2></div>
                 <div class="glass-card rounded-2xl overflow-hidden">
@@ -444,7 +444,7 @@ if(isset($_POST['app-submit'])) {
             document.getElementById('docFees_hidden').value = this.options[this.selectedIndex].getAttribute('data-fees');
         });
 
-        // --- UPGRADED GRAPH CONFIGURATION ---
+        
         const canvas = document.getElementById('vitalsChart');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -459,7 +459,7 @@ if(isset($_POST['app-submit'])) {
                             borderColor: '#2563eb', 
                             backgroundColor: 'rgba(37, 99, 235, 0.1)', 
                             borderWidth: 3, 
-                            tension: 0.4, // This adds smooth curves
+                            tension: 0.4, 
                             pointRadius: 4,
                             pointHoverRadius: 6,
                             pointBackgroundColor: '#2563eb',
@@ -472,7 +472,7 @@ if(isset($_POST['app-submit'])) {
                             borderColor: '#0d9488', 
                             borderWidth: 3, 
                             borderDash: [5, 5], 
-                            tension: 0.4, // This adds smooth curves
+                            tension: 0.4, 
                             pointRadius: 4,
                             pointHoverRadius: 6,
                             pointBackgroundColor: '#0d9488',

@@ -1,6 +1,5 @@
-/* ---------------------------------------------------------------------- */
-/*  Theme 5
-/* ---------------------------------------------------------------------- */
+
+
 ::-moz-selection {
   background: #1FBBA6;
   text-shadow: none;
@@ -238,19 +237,19 @@ header .dropdown-off-sidebar {
     background: rgba(255, 255, 255, 0.4);
   }
   .app-sidebar-closed .app-aside .navbar-form .form-group input::-webkit-input-placeholder {
-    /* WebKit browsers */
+    
     color: rgba(255, 255, 255, 0.3);
   }
   .app-sidebar-closed .app-aside .navbar-form .form-group input:-moz-placeholder {
-    /* Mozilla Firefox 4 to 18 */
+    
     color: rgba(255, 255, 255, 0.3);
   }
   .app-sidebar-closed .app-aside .navbar-form .form-group input::-moz-placeholder {
-    /* Mozilla Firefox 19+ */
+    
     color: rgba(255, 255, 255, 0.3);
   }
   .app-sidebar-closed .app-aside .navbar-form .form-group input:-ms-input-placeholder {
-    /* Internet Explorer 10+ */
+    
     color: rgba(255, 255, 255, 0.3);
   }
   .app-sidebar-closed .app-aside > .item-inner {
@@ -311,19 +310,19 @@ header .dropdown-off-sidebar {
   background: transparent !important;
 }
 .navbar-form .form-control::-webkit-input-placeholder {
-  /* WebKit browsers */
+  
   color: rgba(255, 255, 255, 0.3);
 }
 .navbar-form .form-control:-moz-placeholder {
-  /* Mozilla Firefox 4 to 18 */
+  
   color: rgba(255, 255, 255, 0.3);
 }
 .navbar-form .form-control::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
+  
   color: rgba(255, 255, 255, 0.3);
 }
 .navbar-form .form-control:-ms-input-placeholder {
-  /* Internet Explorer 10+ */
+  
   color: rgba(255, 255, 255, 0.3);
 }
 .navbar-form .form-control:focus {
@@ -335,19 +334,19 @@ header .dropdown-off-sidebar {
   color: #aeacb4;
 }
 .navbar-form .form-control:focus::-webkit-input-placeholder {
-  /* WebKit browsers */
+  
   color: #c2c2c5 !important;
 }
 .navbar-form .form-control:focus:-moz-placeholder {
-  /* Mozilla Firefox 4 to 18 */
+  
   color: #c2c2c5 !important;
 }
 .navbar-form .form-control:focus::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
+  
   color: #c2c2c5 !important;
 }
 .navbar-form .form-control:focus:-ms-input-placeholder {
-  /* Internet Explorer 10+ */
+  
   color: #c2c2c5 !important;
 }
 

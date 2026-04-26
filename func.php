@@ -1,7 +1,7 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
-// --- DATABASE CONNECTION ---
+
 $con = mysqli_connect("localhost", "root", "", "myhmsdb", 3306);
 
 if(isset($_POST['patreg'])) {
@@ -14,7 +14,7 @@ if(isset($_POST['patreg'])) {
     $cpassword = mysqli_real_escape_string($con, $_POST['cpassword']);
 
     if($password == $cpassword) {
-        // 1. Check if email already exists to prevent a SQL error/White screen
+        
         $check_query = "SELECT * FROM patreg WHERE email='$email'";
         $check_res = mysqli_query($con, $check_query);
         
@@ -23,14 +23,14 @@ if(isset($_POST['patreg'])) {
              exit();
         }
 
-        // 2. Insert into database
+        
         $query = "INSERT INTO patreg(fname, lname, gender, email, contact, password, cpassword) 
                   VALUES ('$fname', '$lname', '$gender', '$email', '$contact', '$password', '$cpassword')";
         $result = mysqli_query($con, $query);
 
         if($result) {
-            // 3. Auto-Login after registration
-            // We fetch the new PID created by the database
+            
+            
             $new_user_query = "SELECT pid FROM patreg WHERE email='$email'";
             $new_user_res = mysqli_query($con, $new_user_query);
             $user_data = mysqli_fetch_array($new_user_res);
@@ -43,11 +43,11 @@ if(isset($_POST['patreg'])) {
             $_SESSION['contact'] = $contact;
             $_SESSION['email'] = $email;
 
-            // 4. Redirect to Patient Dashboard (usually admin-panel.php)
+            
             header("Location: admin-panel.php");
-            exit(); // Essential to prevent white screen
+            exit(); 
         } else {
-            // If the query itself fails (e.g. database column name is wrong)
+            
             die("Registration Error: " . mysqli_error($con));
         }
     } else {

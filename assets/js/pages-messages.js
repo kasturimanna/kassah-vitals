@@ -11,14 +11,14 @@ var Messages = function() {"use strict";
 		});
 
 	};
-	// Window Resize Function
+	
 	var resizeHandler = function(func, threshold, execAsap) {
 		$(window).resize(function() {
 			messageHeightHandler();
 		});
 	};
 	return {
-		//main function to initiate template pages
+		
 		init: function() {
 			messageHeightHandler();
 			resizeHandler();

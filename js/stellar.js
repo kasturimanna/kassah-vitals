@@ -1,11 +1,4 @@
-/*!
- * Stellar.js v0.6.2
- * http://markdalgleish.com/projects/stellar.js
- * 
- * Copyright 2013, Mark Dalgleish
- * This content is released under the MIT license
- * http://markdalgleish.mit-license.org
- */
+
 
 ;(function($, window, document, undefined) {
 
@@ -65,7 +58,7 @@
 			}
 		},
 
-		// Returns a function which adds a vendor prefix to any CSS property name
+		
 		vendorPrefix = (function() {
 			var prefixes = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/,
 				style = $('script')[0].style,
@@ -232,7 +225,7 @@
 			this._findParticles();
 			this._findBackgrounds();
 
-			// Fix for WebKit background rendering bug
+			
 			if (options && options.firstLoad && /WebKit/.test(navigator.userAgent)) {
 				$(window).load(function() {
 					var oldLeft = self._getScrollLeft(),
@@ -290,7 +283,7 @@
 					tempParentOffsetLeft = 0,
 					tempParentOffsetTop = 0;
 
-				// Ensure this element isn't already part of another scrolling element
+				
 				if (!$this.data('stellar-elementIsActive')) {
 					$this.data('stellar-elementIsActive', this);
 				} else if ($this.data('stellar-elementIsActive') !== this) {
@@ -299,7 +292,7 @@
 
 				self.options.showElement($this);
 
-				// Save/restore the original top and left CSS values in case we refresh the particles or destroy the instance
+				
 				if (!$this.data('stellar-startingLeft')) {
 					$this.data('stellar-startingLeft', $this.css('left'));
 					$this.data('stellar-startingTop', $this.css('top'));
@@ -311,14 +304,14 @@
 				positionLeft = $this.position().left;
 				positionTop = $this.position().top;
 
-				// Catch-all for margin top/left properties (these evaluate to 'auto' in IE7 and IE8)
+				
 				marginLeft = ($this.css('margin-left') === 'auto') ? 0 : parseInt($this.css('margin-left'), 10);
 				marginTop = ($this.css('margin-top') === 'auto') ? 0 : parseInt($this.css('margin-top'), 10);
 
 				offsetLeft = $this.offset().left - marginLeft;
 				offsetTop = $this.offset().top - marginTop;
 
-				// Calculate the offset parent
+				
 				$this.parents().each(function() {
 					var $this = $(this);
 
@@ -334,11 +327,11 @@
 					}
 				});
 
-				// Detect the offsets
+				
 				horizontalOffset = ($this.data('stellar-horizontal-offset') !== undefined ? $this.data('stellar-horizontal-offset') : ($offsetParent !== undefined && $offsetParent.data('stellar-horizontal-offset') !== undefined ? $offsetParent.data('stellar-horizontal-offset') : self.horizontalOffset));
 				verticalOffset = ($this.data('stellar-vertical-offset') !== undefined ? $this.data('stellar-vertical-offset') : ($offsetParent !== undefined && $offsetParent.data('stellar-vertical-offset') !== undefined ? $offsetParent.data('stellar-vertical-offset') : self.verticalOffset));
 
-				// Add our object to the particles collection
+				
 				self.particles.push({
 					$element: $this,
 					$offsetParent: $offsetParent,
@@ -391,14 +384,14 @@
 					tempParentOffsetLeft = 0,
 					tempParentOffsetTop = 0;
 
-				// Ensure this element isn't already part of another scrolling element
+				
 				if (!$this.data('stellar-backgroundIsActive')) {
 					$this.data('stellar-backgroundIsActive', this);
 				} else if ($this.data('stellar-backgroundIsActive') !== this) {
 					return;
 				}
 
-				// Save/restore the original top and left CSS values in case we destroy the instance
+				
 				if (!$this.data('stellar-backgroundStartingLeft')) {
 					$this.data('stellar-backgroundStartingLeft', backgroundPosition[0]);
 					$this.data('stellar-backgroundStartingTop', backgroundPosition[1]);
@@ -406,14 +399,14 @@
 					setBackgroundPosition($this, $this.data('stellar-backgroundStartingLeft'), $this.data('stellar-backgroundStartingTop'));
 				}
 
-				// Catch-all for margin top/left properties (these evaluate to 'auto' in IE7 and IE8)
+				
 				marginLeft = ($this.css('margin-left') === 'auto') ? 0 : parseInt($this.css('margin-left'), 10);
 				marginTop = ($this.css('margin-top') === 'auto') ? 0 : parseInt($this.css('margin-top'), 10);
 
 				offsetLeft = $this.offset().left - marginLeft - scrollLeft;
 				offsetTop = $this.offset().top - marginTop - scrollTop;
 				
-				// Calculate the offset parent
+				
 				$this.parents().each(function() {
 					var $this = $(this);
 
@@ -429,7 +422,7 @@
 					}
 				});
 
-				// Detect the offsets
+				
 				horizontalOffset = ($this.data('stellar-horizontal-offset') !== undefined ? $this.data('stellar-horizontal-offset') : ($offsetParent !== undefined && $offsetParent.data('stellar-horizontal-offset') !== undefined ? $offsetParent.data('stellar-horizontal-offset') : self.horizontalOffset));
 				verticalOffset = ($this.data('stellar-vertical-offset') !== undefined ? $this.data('stellar-vertical-offset') : ($offsetParent !== undefined && $offsetParent.data('stellar-vertical-offset') !== undefined ? $offsetParent.data('stellar-vertical-offset') : self.verticalOffset));
 
@@ -530,7 +523,7 @@
 				newOffsetTop,
 				i;
 
-			// First check that the scroll position or container size has changed
+			
 			if (this.currentScrollLeft === scrollLeft && this.currentScrollTop === scrollTop && this.currentWidth === this.viewportWidth && this.currentHeight === this.viewportHeight) {
 				return;
 			} else {
@@ -540,13 +533,13 @@
 				this.currentHeight = this.viewportHeight;
 			}
 
-			// Reposition elements
+			
 			for (i = this.particles.length - 1; i >= 0; i--) {
 				particle = this.particles[i];
 
 				fixedRatioOffset = (particle.isFixed ? 1 : 0);
 
-				// Calculate position, then calculate what the particle's new offset will be (for visibility check)
+				
 				if (this.options.horizontalScrolling) {
 					newPositionLeft = (scrollLeft + particle.horizontalOffset + this.viewportOffsetLeft + particle.startingPositionLeft - particle.startingOffsetLeft + particle.parentOffsetLeft) * -(particle.stellarRatio + fixedRatioOffset - 1) + particle.startingPositionLeft;
 					newOffsetLeft = newPositionLeft - particle.startingPositionLeft + particle.startingOffsetLeft;
@@ -563,7 +556,7 @@
 					newOffsetTop = particle.startingOffsetTop;
 				}
 
-				// Check visibility
+				
 				if (this.options.hideDistantElements) {
 					isVisibleHorizontal = !this.options.horizontalScrolling || newOffsetLeft + particle.width > (particle.isFixed ? 0 : scrollLeft) && newOffsetLeft < (particle.isFixed ? 0 : scrollLeft) + this.viewportWidth + this.viewportOffsetLeft;
 					isVisibleVertical = !this.options.verticalScrolling || newOffsetTop + particle.height > (particle.isFixed ? 0 : scrollTop) && newOffsetTop < (particle.isFixed ? 0 : scrollTop) + this.viewportHeight + this.viewportOffsetTop;
@@ -584,7 +577,7 @@
 				}
 			}
 
-			// Reposition backgrounds
+			
 			for (i = this.backgrounds.length - 1; i >= 0; i--) {
 				background = this.backgrounds[i];
 
@@ -651,10 +644,10 @@
 		return $window.stellar.apply($window, Array.prototype.slice.call(arguments, 0));
 	};
 
-	// Expose the scroll and position property function hashes so they can be extended
+	
 	$[pluginName].scrollProperty = scrollProperty;
 	$[pluginName].positionProperty = positionProperty;
 
-	// Expose the plugin class so it can be modified
+	
 	window.Stellar = Plugin;
 }(jQuery, this, document));

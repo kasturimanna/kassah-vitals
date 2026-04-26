@@ -1,8 +1,8 @@
 <?php
-// ============================================================
-// KASSAH Vitals — Blockchain Medical Records Ledger
-// Implements SHA-256 Hash Chain for Data Integrity
-// ============================================================
+
+
+
+
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 if (!isset($_SESSION['pid'])) { header("Location: index1.php"); exit(); }
 
@@ -10,9 +10,9 @@ $pdo = new PDO("mysql:host=localhost;dbname=myhmsdb", "root", "");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $pid = $_SESSION['pid'];
 
-// ============================================================
-// BLOCKCHAIN CORE FUNCTIONS
-// ============================================================
+
+
+
 function generateBlockHash($index, $record_type, $record_id, $data_hash, $previous_hash, $timestamp) {
     return hash('sha256', $index . $record_type . $record_id . $data_hash . $previous_hash . $timestamp);
 }
@@ -22,7 +22,7 @@ function hashRecordData($record) {
 }
 
 function addToBlockchain($pdo, $record_type, $record_id, $pid, $doctor, $data) {
-    // Get last block
+    
     $last = $pdo->query("SELECT block_index, block_hash FROM blockchain_ledger ORDER BY block_index DESC LIMIT 1")->fetch();
     $prev_hash = $last ? $last['block_hash'] : hash('sha256', 'KASSAH_VITALS_GENESIS_BLOCK');
     $next_index = $last ? ($last['block_index'] + 1) : 1;
@@ -57,12 +57,12 @@ function verifyChainIntegrity($pdo, $pid) {
     return $integrity;
 }
 
-// Fetch patient prescriptions and create blockchain entries if not already logged
+
 $pres_q = $pdo->prepare("SELECT p.*, b.block_hash, b.block_index, b.timestamp as block_time FROM prestb p LEFT JOIN blockchain_ledger b ON b.record_id = p.ID AND b.record_type = 'PRESCRIPTION' WHERE p.pid = ? ORDER BY p.appdate DESC");
 $pres_q->execute([$pid]);
 $prescriptions = $pres_q->fetchAll();
 
-// Auto-register any unregistered prescriptions to the blockchain
+
 foreach ($prescriptions as $rx) {
     if (!$rx['block_hash']) {
         addToBlockchain($pdo, 'PRESCRIPTION', $rx['ID'], $pid, $rx['doctor'], [
@@ -73,14 +73,14 @@ foreach ($prescriptions as $rx) {
     }
 }
 
-// Re-fetch with blockchain data
+
 $pres_q->execute([$pid]);
 $prescriptions = $pres_q->fetchAll();
 
-// Verify chain integrity
+
 $integrity = verifyChainIntegrity($pdo, $pid);
 
-// Get the full blockchain for this patient
+
 $chain_q = $pdo->prepare("SELECT * FROM blockchain_ledger WHERE pid = ? ORDER BY block_index DESC LIMIT 10");
 $chain_q->execute([$pid]);
 $chain = $chain_q->fetchAll();
@@ -128,7 +128,7 @@ $chain = $chain_q->fetchAll();
 
     <div class="max-w-6xl mx-auto pt-28 pb-16 px-6">
         
-        <!-- Header -->
+        
         <div class="text-center mb-12">
             <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-highlight-500 to-accent-500 rounded-3xl shadow-2xl mb-6">
                 <i class="fa-solid fa-link text-white text-3xl"></i>
@@ -137,7 +137,7 @@ $chain = $chain_q->fetchAll();
             <p class="text-slate-400 text-lg max-w-2xl mx-auto">Your medical records are secured using SHA-256 cryptographic hash chaining. Any tampering will be instantly detected.</p>
         </div>
 
-        <!-- Integrity Status Banner -->
+        
         <div class="<?= $integrity['valid'] ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30' ?> border rounded-3xl p-6 mb-8 flex items-center gap-6">
             <div class="w-16 h-16 <?= $integrity['valid'] ? 'bg-green-500/20' : 'bg-red-500/20' ?> rounded-2xl flex items-center justify-center shrink-0">
                 <i class="fa-solid <?= $integrity['valid'] ? 'fa-shield-halved text-green-400' : 'fa-shield-exclamation text-red-400' ?> text-3xl"></i>
@@ -149,7 +149,7 @@ $chain = $chain_q->fetchAll();
                 <p class="text-slate-400 text-sm">
                     <?= $integrity['total'] ?> blocks verified &nbsp;•&nbsp;
                     SHA-256 Hash Chain &nbsp;•&nbsp;
-                    <?= $integrity['valid'] ? 'All records authentic and untampered' : 'Compromised blocks: ' . implode(', #', $integrity['compromised']) ?>
+                    <?= $integrity['valid'] ? 'All records authentic and untampered' : 'Compromised blocks: ' . implode(', 
                 </p>
             </div>
             <div class="text-right hidden md:block">
@@ -158,7 +158,7 @@ $chain = $chain_q->fetchAll();
             </div>
         </div>
 
-        <!-- Medical Records with Blockchain Data -->
+        
         <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 mb-8">
             <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <i class="fa-solid fa-file-medical text-brand-400"></i> Verified Medical Prescriptions
@@ -191,7 +191,7 @@ $chain = $chain_q->fetchAll();
                             <?php if ($rx['block_hash']): ?>
                                 <div class="flex flex-wrap gap-3">
                                     <div class="bg-slate-900/60 rounded-xl px-4 py-2 text-xs border border-slate-700/30">
-                                        <span class="text-slate-500">Block #</span>
+                                        <span class="text-slate-500">Block 
                                         <span class="text-white font-bold ml-1"><?= $rx['block_index'] ?></span>
                                     </div>
                                     <div class="bg-slate-900/60 rounded-xl px-4 py-2 text-xs border border-slate-700/30 flex-1 truncate">
@@ -206,7 +206,7 @@ $chain = $chain_q->fetchAll();
             <?php endif; ?>
         </div>
 
-        <!-- Blockchain Ledger Visualization -->
+        
         <?php if (!empty($chain)): ?>
         <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8">
             <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
@@ -217,7 +217,7 @@ $chain = $chain_q->fetchAll();
                 <table class="w-full text-left text-xs">
                     <thead class="text-slate-500 font-bold uppercase tracking-wider border-b border-slate-700">
                         <tr>
-                            <th class="pb-3 pr-4">Block #</th>
+                            <th class="pb-3 pr-4">Block 
                             <th class="pb-3 pr-4">Type</th>
                             <th class="pb-3 pr-4">Block Hash (SHA-256)</th>
                             <th class="pb-3 pr-4">Previous Hash</th>

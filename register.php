@@ -165,13 +165,13 @@ include("header.php");
     </div>
 
     <script>
-        // Restrict name fields to alphabets only
+        
         function alphaOnly(event) {
             var key = event.keyCode;
             return ((key >= 65 && key <= 90) || key == 8 || key == 32 || key == 9 || key == 46);
         };
 
-        // Real-time password matching check
+        
         var check = function() {
             var pass = document.getElementById('password').value;
             var cpass = document.getElementById('cpassword').value;
@@ -182,10 +182,10 @@ include("header.php");
                 return;
             }
             if (pass === cpass) {
-                msg.style.color = '#10b981'; // Tailwind emerald-500
+                msg.style.color = '#10b981'; 
                 msg.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Passwords match';
             } else {
-                msg.style.color = '#ef4444'; // Tailwind red-500
+                msg.style.color = '#ef4444'; 
                 msg.innerHTML = '<i class="fa-solid fa-circle-xmark mr-1"></i> Passwords do not match';
             }
         }

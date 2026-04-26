@@ -46,18 +46,18 @@ if(isset($_POST['update_data']))
 
 
 
-// function display_docs()
-// {
-// 	global $con;
-// 	$query="select * from doctb";
-// 	$result=mysqli_query($con,$query);
-// 	while($row=mysqli_fetch_array($result))
-// 	{
-// 		$name=$row['name'];
-// 		# echo'<option value="" disabled selected>Select Doctor</option>';
-// 		echo '<option value="'.$name.'">'.$name.'</option>';
-// 	}
-// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 if(isset($_POST['doc_sub']))
 {
@@ -71,12 +71,12 @@ function display_admin_panel(){
 	echo '<!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- Bootstrap CSS -->
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
   <a class="navbar-brand" href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> Global Hospital</a>
@@ -102,7 +102,7 @@ function display_admin_panel(){
   </head>
   <style type="text/css">
     button:hover{cursor:pointer;}
-    #inputbtn:hover{cursor:pointer;}
+    
   </style>
   <body style="padding-top:50px;">
  <div class="jumbotron" id="ab1"></div>
@@ -146,9 +146,7 @@ function display_admin_panel(){
                   <div class="col-md-8">
                    <select name="doctor" class="form-control" >
 
-                     <!-- <option value="" disabled selected>Select Doctor</option>
-                     <option value="Dr. Punam Shaw">Dr. Punam Shaw</option>
-                      <option value="Dr. Ashok Goyal">Dr. Ashok Goyal</option> -->
+                     
                       <?php display_docs();?>
 
 
@@ -203,12 +201,12 @@ function display_admin_panel(){
   </div>
 </div>
    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-    <!--Sweet alert js-->
+    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.js"></script>
    <script type="text/javascript">
    $(document).ready(function(){
