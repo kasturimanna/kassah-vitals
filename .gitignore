@@ -1,0 +1,25 @@
+# KASSAH Vitals — .gitignore
+
+# Ignore sensitive config files
+config.php
+.env
+
+# Ignore temp/debug files
+check_doctor.php
+update_doctor_emails.php
+setup_advanced.php
+
+# Ignore log files
+*.log
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore IDE folders
+.vscode/
+.idea/
+
+# Ignore node_modules if any
+node_modules/
