@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) { session_start(); }
 include('func1.php');
 
 
-$host = 'localhost';
+$host = 'localhost:3307';
 $dbname = 'myhmsdb';
 $db_user = 'root';
 $db_pass = '';

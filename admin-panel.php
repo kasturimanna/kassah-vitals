@@ -4,7 +4,7 @@ include('func.php');
 include('newfunc.php');
 
 
-$host = 'localhost';
+$host = 'localhost:3307';
 $dbname = 'myhmsdb';
 $db_user = 'root';
 $db_pass = '';

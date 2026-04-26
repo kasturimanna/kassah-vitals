@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-$host = 'localhost';
+$host = 'localhost:3307';
 $dbname = 'myhmsdb';
 $db_user = 'root';
 $db_pass = '';
