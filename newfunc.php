@@ -1,6 +1,6 @@
 <?php
 
-$con=mysqli_connect("localhost","root","","myhmsdb", 3306);
+$con=mysqli_connect("localhost","root","","myhmsdb", 3307);
 
 
 

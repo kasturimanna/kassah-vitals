@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","myhmsdb", 3306);
+$con=mysqli_connect("localhost","root","","myhmsdb", 3307);
 if(isset($_POST['patsub1'])){
 	$fname=$_POST['fname'];
   $lname=$_POST['lname'];

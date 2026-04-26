@@ -6,7 +6,7 @@
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 if (!isset($_SESSION['pid'])) { header("Location: index1.php"); exit(); }
 
-$pdo = new PDO("mysql:host=localhost;dbname=myhmsdb", "root", "");
+$pdo = new PDO("mysql:host=localhost;port=3307;dbname=myhmsdb", "root", "");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $pid = $_SESSION['pid'];
 

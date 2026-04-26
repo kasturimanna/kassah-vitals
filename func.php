@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 
-$con = mysqli_connect("localhost", "root", "", "myhmsdb", 3306);
+$con = mysqli_connect("localhost", "root", "", "myhmsdb", 3307);
 
 if(isset($_POST['patreg'])) {
     $fname = mysqli_real_escape_string($con, $_POST['fname']);
